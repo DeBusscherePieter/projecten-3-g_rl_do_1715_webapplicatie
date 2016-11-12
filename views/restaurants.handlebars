@@ -1,0 +1,80 @@
+<!DOCTYPE>
+<html ng-app="myApp">
+<head>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <title>
+    Mijn Resto: Restaurants
+  </title>
+</head>
+
+
+
+<body>
+
+  <nav>
+    <ul class="nav nav-pills pull-right">
+      {{#if user}}
+        <li role="presentation"><a href="/">Home</a></li>
+        <li role="presentation"><a href="/users/logout">Logout</a></li>
+      {{else}}
+        <li role="presentation"><a href="/users/login">Login</a></li>
+      {{/if}}
+    </ul>
+  </nav>
+
+  <div class="container" ng-controller="RestaurantCtrl">
+    <h1>Restaurantlijst</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th> adres </th>
+          <th> created_at </th>
+          <th> id </th>
+          <th> lat </th>
+          <th> lng </th>
+          <th> naam </th>
+          <th> openingsuren </th>
+          <th> Actie </th>
+          <td>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input class="form-control" ng-model="restaurant.adres"></td>
+          <td><input class="form-control" ng-model="restaurant.created_at"></td>
+          <td><input class="form-control" ng-model="restaurant.id"></td>
+          <td><input class="form-control" ng-model="restaurant.lat"></td>
+          <td><input class="form-control" ng-model="restaurant.lng"></td>
+          <td><input class="form-control" ng-model="restaurant.naam"></td>
+          <td><input class="form-control" ng-model="restaurant.openingsuren"></td>
+          <td><button class="btn btn-primary" ng-click="addResto()"> Voeg resto toe </button></td>
+          <td><button class="btn btn-info" ng-click="updateResto()">Update</button></td>
+        </tr>
+
+        <tr ng-repeat="restaurant in restaurantList">
+          <td><p ng-bind="restaurant.adres"></p></td>
+          <td><p ng-bind="restaurant.created_at"></p></td>
+          <td><p ng-bind="restaurant.id"></p></td>
+          <td><p ng-bind="restaurant.lat"></p></td>
+          <td><p ng-bind="restaurant.lng"></p></td>
+          <td><p ng-bind="restaurant.naam"></p></td>
+          <td><p ng-bind="restaurant.openingsuren"></p></td>
+          <td><button class="btn btn-danger" ng-click="removeResto(restaurant._id)">Verwijder restaurant </button> </td>
+          <td><button class="btn btn-warning" ng-click="editResto(restaurant._id)">Wijzig </button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <footer class="footer">
+      <p>&copy; 2016 Mijn Resto - De Busschere Pieter, Sofie De Plus &amp; Angelo Lebon</p>
+    </footer>
+  </div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+  <script src="/controllers/controller.js"></script>
+</body>
+</html>

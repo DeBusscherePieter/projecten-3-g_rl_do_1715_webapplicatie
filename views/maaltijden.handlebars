@@ -1,0 +1,82 @@
+<!DOCTYPE>
+<html ng-app="myApp">
+<head>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <title>
+    Mijn Resto: webapplicatie
+  </title>
+</head>
+
+
+
+<body>
+
+  <nav>
+    <ul class="nav nav-pills pull-right">
+      {{#if user}}
+        <li role="presentation"><a href="/">Home</a></li>
+        <li role="presentation"><a href="/users/logout">Logout</a></li>
+      {{else}}
+        <li role="presentation"><a href="/users/login">Login</a></li>
+      {{/if}}
+    </ul>
+  </nav>
+
+  <div class="container" ng-controller="AppCtrl">
+    <h1>Menu lijst</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th> datum_creatie </th>
+          <th> datum </th>
+          <th> beschrijving </th>
+          <th> id </th>
+          <th> prijs </th>
+          <th> restaurant_id </th>
+          <th> titel </th>
+          <th> datum_update </th>
+          <th> Actie </th>
+          <td>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input class="form-control" ng-model="maaltijd.datum_creatie"></td>
+          <td><input class="form-control" ng-model="maaltijd.datum"></td>
+          <td><input class="form-control" ng-model="maaltijd.beschrijving"></td>
+          <td><input class="form-control" ng-model="maaltijd.id"></td>
+          <td><input class="form-control" ng-model="maaltijd.prijs"></td>
+          <td><input class="form-control" ng-model="maaltijd.restaurant_id"></td>
+          <td><input class="form-control" ng-model="maaltijd.titel"></td>
+          <td><input class="form-control" ng-model="maaltijd.datum_update"></td>
+          <td><button class="btn btn-primary" ng-click="addMaaltijd()"> Voeg maaltijd toe </button></td>
+          <td><button class="btn btn-info" ng-click="update()">Update</button></td>
+        </tr>
+        <tr ng-repeat="maaltijd in maaltijdList">
+          <td><p ng-bind="maaltijd.datum_creatie"></p></td>
+          <td><p ng-bind="maaltijd.datum"></p></td>
+          <td><p ng-bind="maaltijd.beschrijving"></p></td>
+          <td><p ng-bind="maaltijd.id"></p></td>
+          <td><p ng-bind="maaltijd.prijs"></p></td>
+          <td><p ng-bind="maaltijd.restaurant_id"></p></td>
+          <td><p ng-bind="maaltijd.titel"></p></td>
+          <td><p ng-bind="maaltijd.datum_update"></p></td>
+          <td><button class="btn btn-danger" ng-click="remove(maaltijd._id)">Verwijder maaltijd </button> </td>
+          <td><button class="btn btn-warning" ng-click="edit(maaltijd._id)">Wijzig </button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <footer class="footer">
+      <p>&copy; 2016 Mijn Resto - De Busschere Pieter, Sofie De Plus &amp; Angelo Lebon</p>
+    </footer>
+  </div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+  <script src="controllers/controller.js"></script>
+</body>
+</html>
