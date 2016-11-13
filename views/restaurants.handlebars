@@ -14,18 +14,21 @@
 
 <body>
 
-  <nav>
-    <ul class="nav nav-pills pull-right">
-      {{#if user}}
-        <li role="presentation"><a href="/">Home</a></li>
-        <li role="presentation"><a href="/users/logout">Logout</a></li>
-      {{else}}
-        <li role="presentation"><a href="/users/login">Login</a></li>
-      {{/if}}
-    </ul>
-  </nav>
+
 
   <div class="container" ng-controller="RestaurantCtrl">
+    <div class="header clearfix">
+      <nav>
+        <ul class="nav nav-pills pull-right">
+          {{#if user}}
+            <li role="presentation"><a href="/">Home</a></li>
+            <li role="presentation"><a href="/users/logout">Logout</a></li>
+          {{else}}
+            <li role="presentation"><a href="/users/login">Login</a></li>
+          {{/if}}
+        </ul>
+      </nav>
+    </div>
     <h1>Restaurantlijst</h1>
     <table class="table">
       <thead>
