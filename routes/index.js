@@ -16,6 +16,11 @@ router.get('/maaltijden', ensureAuthenticated, function(req, res) {
     res.render('maaltijden', {layout: false});
 });
 
+//Get activiteiten
+router.get('/activiteiten', ensureAuthenticated, function(req, res) {
+    res.render('activiteiten', {layout: false});
+});
+
 function ensureAuthenticated(req, res, next){
 	if(req.isAuthenticated()){
 		return next();

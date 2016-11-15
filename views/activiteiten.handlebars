@@ -1,0 +1,78 @@
+<!DOCTYPE>
+<html ng-app="myApp">
+<head>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <title>
+    Mijn Resto: webapplicatie
+  </title>
+</head>
+
+
+
+<body>
+
+
+  <div class="container" ng-controller="ActiviteitCtrl">
+    <div class="header clearfix">
+      <nav>
+        <ul class="nav nav-pills pull-right">
+          {{#if user}}
+            <li role="presentation"><a href="/">Home</a></li>
+            <li role="presentation"><a href="/users/logout">Logout</a></li>
+          {{else}}
+            <li role="presentation"><a href="/users/login">Login</a></li>
+          {{/if}}
+        </ul>
+      </nav>
+    </div>
+    <h1>Lijst activiteiten</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th> naam </th>
+          <th> info </th>
+          <th> datum </th>
+          <th> locatie </th>
+          <th> campus </th>
+          <th> adres </th>
+          <th> Actie </th>
+          <td>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input class="form-control" ng-model="activiteit.naam"></td>
+          <td><input class="form-control" ng-model="activiteit.info"></td>
+          <td><input class="form-control" ng-model="activiteit.datum"></td>
+          <td><input class="form-control" ng-model="activiteit.locatie"></td>
+          <td><input class="form-control" ng-model="activiteit.campus"></td>
+          <td><input class="form-control" ng-model="activiteit.adres"></td>
+          <td><button class="btn btn-primary" ng-click="addActiviteit()"> Voeg activiteit toe </button></td>
+          <td><button class="btn btn-info" ng-click="update()">Update</button></td>
+        </tr>
+        <tr ng-repeat="activiteit in activiteitenList">
+          <td><p ng-bind="activiteit.naam"></p></td>
+          <td><p ng-bind="activiteit.info"></p></td>
+          <td><p ng-bind="activiteit.datum"></p></td>
+          <td><p ng-bind="activiteit.locatie"></p></td>
+          <td><p ng-bind="activiteit.campus"></p></td>
+          <td><p ng-bind="activiteit.adres"></p></td>
+          <td><button class="btn btn-danger" ng-click="removeActiviteit(activiteit._id)">Verwijder activiteit </button> </td>
+          <td><button class="btn btn-warning" ng-click="editActiviteit(activiteit._id)">Wijzig </button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <footer class="footer">
+      <p>&copy; 2016 Mijn Resto - Pieter De Busschere, Sofie De Plus &amp; Angelo Lebon</p>
+    </footer>
+  </div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+  <script src="controllers/controller.js"></script>
+</body>
+</html>

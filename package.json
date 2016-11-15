@@ -18,6 +18,8 @@
     "express-messages": "*",
     "express-session": "*",
     "express-validator": "*",
+    "handlebars": "^4.0.6",
+    "handlebars-helpers": "^0.7.5",
     "mongodb": "*",
     "mongoose": "*",
     "passport": "*",

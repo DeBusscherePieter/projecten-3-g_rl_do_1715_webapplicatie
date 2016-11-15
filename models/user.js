@@ -15,6 +15,9 @@ var UserSchema = mongoose.Schema({
 	},
 	name: {
 		type: String
+	},
+  werknemer: {
+		type: Boolean
 	}
 });
 

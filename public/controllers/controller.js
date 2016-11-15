@@ -97,3 +97,57 @@ $scope.updateResto = function(){
 
 
 }]);
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////   ACTIVITEITEN //////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+myApp.controller('ActiviteitCtrl', ['$scope', '$http', function($scope, $http) {
+
+  var refreshActiviteit = function(){
+    $http.get('/activiteitenList').success(function(response){
+      console.log("I got the data I requested");
+      $scope.activiteitenList = response;
+      $scope.activiteit = "";
+    });
+  };
+
+refreshActiviteit();
+
+$scope.addActiviteit = function() {
+  console.log($scope.activiteit);
+  $scope.activiteit._id = "";
+  $http.post('/activiteitenList', $scope.activiteit).success(function(response){
+    console.log(response);
+    refreshActiviteit();
+  });
+};
+
+$scope.removeActiviteit = function(id){
+  console.log(id);
+  $http.delete('/activiteitenList/' + id).success(function(response){
+    refreshActiviteit();
+  });
+};
+
+$scope.editActiviteit = function(id) {
+  console.log(id);
+  $http.get('/activiteitenList/' + id).success(function(response){
+    $scope.activiteit = response;
+  });
+};
+
+$scope.update = function(){
+  console.log($scope.activiteit._id);
+  $http.put('/activiteitenList/' + $scope.activiteit._id, $scope.activiteit).success(function(response){
+    refreshActiviteit();
+  });
+};
+
+
+}]);

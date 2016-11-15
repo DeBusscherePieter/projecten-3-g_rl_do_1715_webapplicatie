@@ -10,6 +10,10 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
+var helpers = require('handlebars-helpers')();
+
+
+
 
 mongoose.connect('mongodb://localhost/loginapp');
 var db = mongoose.connection;
@@ -22,8 +26,10 @@ var app = express();
 
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
-app.engine('handlebars', exphbs({defaultLayout:'layout'}));
 app.set('view engine', 'handlebars');
+app.engine('handlebars', exphbs({defaultLayout:'layout', helpers: require('handlebars-helpers').helpers}));
+
+
 
 // BodyParser Middleware
 app.use(bodyParser.json());
@@ -182,6 +188,57 @@ app.put('/restaurantList/:id', function(req, res){
 });
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////                    ACTIVITEITEN                    /////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+var db3 = mongojs('activiteitenList', ['activiteitenList']);
+
+app.get('/activiteitenList', function(req, res) {
+  console.log("I received a GET request")
+
+  db3.activiteitenList.find(function(err, docs){
+    console.log(docs);
+    res.json(docs);
+  });
+});
+
+app.post('/activiteitenList', function(req, res){
+  console.log(req.body);
+  db3.activiteitenList.insert(req.body, function(err, doc){
+    res.json(doc);
+  });
+});
+
+app.delete('/activiteitenList/:id', function(req, res){
+  var id = req.params.id;
+  console.log(id);
+  db3.activiteitenList.remove({_id: mongojs.ObjectId(id)}, function(err,doc){
+    res.json(doc);
+  });
+});
+
+app.get('/activiteitenList/:id', function(req,res){
+  var id = req.params.id;
+  console.log(id);
+  db3.activiteitenList.findOne({_id: mongojs.ObjectId(id)}, function(err,doc){
+    res.json(doc);
+  });
+});
+
+app.put('/activiteitenList/:id', function(req, res){
+  var id = req.params.id;
+  db3.activiteitenList.findAndModify({query: {_id: mongojs.ObjectId(id)},
+    update: {$set: {naam: req.body.naam, info: req.body.info, datum: req.body.datum, locatie: req.body.locatie, campus: req.body.campus, adres: req.body.adres}},
+    new: true}, function(err, doc){
+      res.json(doc);
+
+  });
+});
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
