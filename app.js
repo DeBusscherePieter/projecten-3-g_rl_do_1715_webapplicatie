@@ -230,7 +230,7 @@ app.get('/activiteitenList/:id', function(req,res){
 app.put('/activiteitenList/:id', function(req, res){
   var id = req.params.id;
   db3.activiteitenList.findAndModify({query: {_id: mongojs.ObjectId(id)},
-    update: {$set: {naam: req.body.naam, info: req.body.info, datum: req.body.datum, locatie: req.body.locatie, campus: req.body.campus, adres: req.body.adres}},
+    update: {$set: {naam: req.body.naam, info: req.body.info, datum: req.body.datum, tijdstip: req.body.tijdstip, locatie: req.body.locatie, campus: req.body.campus, adres: req.body.adres}},
     new: true}, function(err, doc){
       res.json(doc);
 
