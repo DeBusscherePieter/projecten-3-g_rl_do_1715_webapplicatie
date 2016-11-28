@@ -307,7 +307,7 @@ app.post('/users/vergeten', function(req, res){
 app.post('/users/edit/password', function(req, res){
 
   if(!req.body.currentPassword || !req.body.newPassword || !req.body.newPasswordRepeat){
-    res.render('edit',{error_msg_pass: "Gelieve alle velden in te vullen.", layout: false});
+    res.render('edit',{error_msg_pass: "Gelieve alle velden in te vullen."});
   } else {
 
     dbjs.users.findOne({username: req.body.username},{username: 1, password: 1}, function(err,doc){
@@ -320,7 +320,7 @@ app.post('/users/edit/password', function(req, res){
               if(regex.test(req.body.newPassword)){
 
                 if(req.body.newPassword === req.body.currentPassword){
-                  res.render('edit',{error_msg_pass: "Uw nieuw wachtwoord mag niet gelijk zijn aan uw huidig wachtwoord.", layout: false});
+                  res.render('edit',{error_msg_pass: "Uw nieuw wachtwoord mag niet gelijk zijn aan uw huidig wachtwoord."});
                 }
 
                 dbjs.users.update({username: req.body.username}, {$set: {password: bcrypt.hashSync(req.body.newPassword)}});
@@ -350,7 +350,7 @@ var passgen = require('pass-gen');
 //var db5 = mongojs('loginapp', ['verification']);
 app.post('/users/edit/mail', function(req, res){
   if(!req.body.newMail || !req.body.newMailRepeat){
-    res.render('edit',{error_msg_mail: "Gelieve alle velden in te vullen.", layout: false});
+    res.render('edit',{error_msg_mail: "Gelieve alle velden in te vullen."});
   } else {
     var huidig = req.body.currentMail;
     var newMail = req.body.newMail;

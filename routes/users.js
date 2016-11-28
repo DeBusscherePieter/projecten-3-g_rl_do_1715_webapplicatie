@@ -47,7 +47,7 @@ passport.deserializeUser(function(id, done) {
 });
 
 router.post('/login',
-  passport.authenticate('local', {successRedirect:'/', failureRedirect:'/users/login',failureFlash: true}),
+  passport.authenticate('local', {successRedirect:'/', failureRedirect:'/users/login',failureFlash: true, failureFlash: 'Incorrecte gegevens.' }),
   function(req, res) {
     res.redirect('/');
   });
