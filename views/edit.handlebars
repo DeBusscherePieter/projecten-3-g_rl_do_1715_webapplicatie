@@ -1,0 +1,111 @@
+
+
+
+
+<!-- Wide card with share menu button -->
+<style>
+.demo-card-wide.mdl-card {
+  width: 100%;
+}
+.demo-card-wide > .mdl-card__title {
+  color: #fff;
+  height: inherit;
+  background-color: rgb(0,150,136);
+}
+.demo-card-wide > .mdl-card__menu {
+  color: #fff;
+}
+</style>
+
+
+
+
+
+<div class="mdl-grid">
+	<div class="mdl-layout-spacer"></div>
+  <div class="mdl-cell mdl-cell--4-col">
+    <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Wijzig wachtwoord</h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+        <p><b>TIP:</b> Gebruik een wachtwoord dat </br> </br>
+          - minimum 4 en maxmimum 15 characters bevat </br>
+          - minstens een letter en een cijfer bevat </br>
+          - geen speciale karakters bevat
+        </p>
+        {{#if success_msg_pass}}
+          <div class="mdl-card__supporting-text" style="background-color: #BAFFB3">{{success_msg_pass}}</div>
+        {{/if}}
+
+        {{#if error_msg_pass}}
+          <div class="mdl-card__supporting-text" style="background-color: #FFB3B3">{{error_msg_pass}}</div>
+        {{/if}}
+
+        {{#if error_pass}}
+          <div class="mdl-card__supporting-text" style="background-color: #FFB3B3">{{error_pass}}</div>
+        {{/if}}
+        <form method="post" action="/users/edit/password">
+    			<div class="mdl-textfield mdl-js-textfield">
+            <input type="hidden" name="username" value={{user.username}} />
+    		    <input class="mdl-textfield__input" name="currentPassword" type="password" id="currentPassword">
+    		    <label class="mdl-textfield__label" for="currentPassword">Huidig wachtwoord</label>
+      		</div>
+          <div class="mdl-textfield mdl-js-textfield">
+    		    <input class="mdl-textfield__input" name="newPassword" type="password" id="newPassword">
+    		    <label class="mdl-textfield__label" for="newPassword">Nieuw wachtwoord</label>
+      		</div>
+    			<div class="mdl-textfield mdl-js-textfield">
+    		    <input class="mdl-textfield__input" name="newPasswordRepeat" type="password" id="newPasswordRepeat">
+    		    <label class="mdl-textfield__label" for="newPasswordRepeat">Herhaling nieuw wachtwoord</label>
+      		</div> <br>
+    			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit">
+    			  Wijzig wachtwoord
+    			</button>
+    		</form>
+      </div>
+    </div>
+  </div>
+
+  <div class="mdl-cell mdl-cell--4-col">
+    <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Wijzig e-mailadres</h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+        {{#if user.email}}
+          <p>Uw huidig e-mailadres is: <b>{{user.email}}</b>
+          </p>
+        {{/if}}
+        {{#if success_msg_mail}}
+          <div class="mdl-card__supporting-text" style="background-color: #BAFFB3">{{success_msg_mail}}</div>
+        {{/if}}
+
+        {{#if error_msg_mail}}
+          <div class="mdl-card__supporting-text" style="background-color: #FFB3B3">{{error_msg_mail}}</div>
+        {{/if}}
+
+        {{#if error_mail}}
+          <div class="mdl-card__supporting-text" style="background-color: #FFB3B3">{{error_mail}}</div>
+        {{/if}}
+        <form method="post" action="/users/edit/mail">
+    			<div class="mdl-textfield mdl-js-textfield">
+            <input type="hidden" name="currentMail" value={{user.email}}>
+            <input type="hidden" name="gebruiker" value={{user.username}}>
+    		    <input class="mdl-textfield__input" name="newMail" type="text" id="newMail">
+    		    <label class="mdl-textfield__label" for="newMail">Nieuw e-mailadres</label>
+      		</div>
+          <div class="mdl-textfield mdl-js-textfield">
+    		    <input class="mdl-textfield__input" name="newMailRepeat" type="text" id="newMailRepeat">
+    		    <label class="mdl-textfield__label" for="newMailRepeat">Nieuw wachtwoord</label>
+      		</div> </br>
+    			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit">
+    			  Wijzig e-mailadres
+    			</button>
+    		</form>
+      </div>
+    </div>
+  </div>
+
+	<div class="mdl-layout-spacer"></div>
+</div>

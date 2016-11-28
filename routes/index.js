@@ -8,18 +8,37 @@ router.get('/', ensureAuthenticated, function(req, res){
 
 //Get Restaurants
 router.get('/restaurants', ensureAuthenticated, function(req, res) {
-    res.render('restaurants', {layout: false});
+		if(req.user.werknemer === false){
+			res.render('404', {layout: false});
+		} else {
+		  res.render('restaurants');
+		}
 });
 
 //Get Maaltijden
 router.get('/maaltijden', ensureAuthenticated, function(req, res) {
-    res.render('maaltijden', {layout: false});
+	if(req.user.werknemer === false){
+		res.render('404', {layout: false});
+	} else {
+    res.render('maaltijden');
+	}
 });
 
 //Get activiteiten
 router.get('/activiteiten', ensureAuthenticated, function(req, res) {
-    res.render('activiteiten', {layout: false});
+    res.render('activiteiten');
 });
+
+router.get('/users/edit', ensureAuthenticated, function(req,res){
+	res.render('edit');
+});
+
+router.get('/users/edit/mail', ensureAuthenticated, function(req, res){
+	res.redirect('/users/edit');
+});
+
+
+
 
 function ensureAuthenticated(req, res, next){
 	if(req.isAuthenticated()){

@@ -1,0 +1,40 @@
+<a href="/"><button class="mdl-button mdl-js-button mdl-button--primary">
+  TERUG NAAR LOGIN
+</button></a>
+
+<div class="mdl-grid">
+	<div class="mdl-layout-spacer"></div>
+  <div class="mdl-cell mdl-cell--6-col">
+		<h2>Wachtwoord vergeten?</h2>
+		<p>Vul hier uw gebruikersnaam en wachtwoord in, dan mailen we u direct een nieuw wachtwoord!</p>
+		{{#if success_msg}}
+			<div class="mdl-card__supporting-text" style="background-color: #BAFFB3">
+				{{success_msg}}
+			</div>
+		{{/if}}
+		{{#if error_msg}}
+		<div class="mdl-card__supporting-text" style="background-color: #FFB3B3">
+			{{error_msg}}
+		</div>
+		{{/if}}
+		{{#if error}}
+		<div class="mdl-card__supporting-text" style="background-color: #FFB3B3">
+			{{error}}
+		</div>
+		{{/if}}
+  	<form method="post" action="/users/vergeten">
+			<div class="mdl-textfield mdl-js-textfield">
+		    <input class="mdl-textfield__input" name="username" type="text" id="username">
+		    <label class="mdl-textfield__label" for="sample1">Gebruikersnaam</label>
+  		</div>
+			<div class="mdl-textfield mdl-js-textfield">
+		    <input class="mdl-textfield__input" name="mail" type="text" id="mail">
+		    <label class="mdl-textfield__label" for="mail">E-mail</label>
+  		</div>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit">
+			  <i class="material-icons">autorenew</i>Nieuw wachtwoord
+			</button>
+		</form>
+  </div>
+	<div class="mdl-layout-spacer"></div>
+</div>

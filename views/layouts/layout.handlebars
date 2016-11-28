@@ -1,51 +1,109 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
 <head>
 	<title>Mijn Resto</title>
-	<link rel="stylesheet" href="/css/bootstrap.css" />
-	<link rel="stylesheet" href="/css/style.css" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.teal-deep_purple.min.css" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+	<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
 </head>
 <body>
-	<div class="container">
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            {{#if user}}
-              <li role="presentation"><a href="/">Home</a></li>
-              <li role="presentation"><a href="/users/logout">Logout</a></li>
-            {{else}}
-              <li role="presentation"><a href="/users/login">Login</a></li>
-            {{/if}}
-          </ul>
-        </nav>
-        <h3 class="text-muted">Mijn Resto</h3>
-      </div>
+
+	<style>
+	.mdl-layout__content {
+    display: -webkit-flex;
+		display: flex;
+    -webkit-flex-direction: column;
+	  flex-direction: column;
+}
+
+	.footicon{
+		vertical-align: -25%;
+	}
+	</style>
+
+		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+			{{#if user}}
+			<header class="mdl-layout__header">
+				<div class="mdl-layout__header-row">
+					<!-- Title -->
+					<span class="mdl-layout-title">HoGent: Mijn Resto</span>
+					<!-- Add spacer, to align navigation to the right -->
+					<div class="mdl-layout-spacer"></div>
+					<!-- Navigation. We hide it in small screens. -->
+					<nav class="mdl-navigation mdl-layout--large-screen-only" id="links">
+						<a class="mdl-navigation__link" href="/"><i class="material-icons">home</i>Home</a>
+						<a class="mdl-navigation__link" href="/restaurants"><i class="material-icons">place</i>Restaurants</a>
+						<a class="mdl-navigation__link" href="/maaltijden"><i class="material-icons">restaurant_menu</i>Maaltijden</a>
+						<a class="mdl-navigation__link" href="/activiteiten"><i class="material-icons">pool</i>Activiteiten</a>
+						<a class="mdl-navigation__link" href="/users/edit"><i class="material-icons">account_circle</i>{{user.name}}</a>
+						<a class="mdl-navigation__link" href="/users/logout"><i class="material-icons">power_settings_new</i>Log uit</a>
+					</nav>
+				</div>
+			</header>
+			<div class="mdl-layout__drawer">
+				<span class="mdl-layout-title">HoGent: Mijn Resto</span>
+				<nav class="mdl-navigation" id="mainlinks">
+					<a class="mdl-navigation__link" href="/"><i class="material-icons">home</i>Home</a>
+					<a class="mdl-navigation__link" href="/restaurants"><i class="material-icons">place</i>Restaurants</a>
+					<a class="mdl-navigation__link" href="/maaltijden"><i class="material-icons">restaurant_menu</i>Maaltijden</a>
+					<a class="mdl-navigation__link" href="/activiteiten"><i class="material-icons">pool</i>Activiteiten</a>
+					<a class="mdl-navigation__link" href="/users/edit"><i class="material-icons">account_circle</i>{{user.name}}</a>
+					<a class="mdl-navigation__link" href="/users/logout"><i class="material-icons">power_settings_new</i>Log uit</a>
+				</nav>
+			</div>
+			{{else}}
+			<style>
+			.mdl-layout {
+				align-items: center;
+				justify-content: center;
+			}
+			.mdl-layout__content {
+				padding: 24px;
+				flex: none;
+			}
+			</style>
+		{{/if}}
 
 
-      <div class="row">
-        <div class="col-lg-12">
-          {{#if success_msg}}
-            <div class="alert alert-success">{{success_msg}}</div>
-          {{/if}}
-
-          {{#if error_msg}}
-            <div class="alert alert-danger">{{error_msg}}</div>
-          {{/if}}
-
-          {{#if error}}
-            <div class="alert alert-danger">{{error}}</div>
-          {{/if}}
-
-          {{{body}}}
-        </div>
+		<main class="mdl-layout__content">
+			<div class="page-content" style="background-color: white;">{{{body}}}</div>
 
 
-      </div>
 
-      <footer class="footer">
-        <p>&copy; 2016 Mijn Resto - Pieter De Busschere, Sofie De Plus &amp; Angelo Lebon</p>
-      </footer>
+		{{#if user}}
+		<div class="mdl-layout-spacer" style="background-color: white;"></div>
+		<div id="footerwrapper" style="background-color: #424242">
+			<footer class="mdl-mini-footer">
+				<div class="mdl-mini-footer__left-section">
+					<div class="mdl-logo">HoGent: Mijn Resto</div>
+					<ul class="mdl-mini-footer__link-list">
+						<li><a href="https://www.hogent.be/" target="_blank"><i class="material-icons footicon">language</i>HoGent</a></li>
+						<li><i class="material-icons footicon">email</i>info@mijnresto.hogent.be</li>
+						<li><i class="material-icons footicon">face</i>Pieter De Busschere, Sofie De Plus & Angelo Lebon</li>
+					</ul>
+				</div>
+				</footer>
+			</div>
+		{{/if}}
+		</main>
+</div>
 
-    </div> <!-- /container -->
+		<script>
+		if({{user.werknemer}} === false){
+			var div = '<a class="mdl-navigation__link" href="/"><i class="material-icons">home</i>Home</a><a class="mdl-navigation__link" href="/activiteiten"><i class="material-icons">pool</i>Activiteiten</a><a class="mdl-navigation__link" href="/users/edit"><i class="material-icons">account_circle</i>{{user.name}}</a><a class="mdl-navigation__link" href="/users/logout"><i class="material-icons">power_settings_new</i>Log uit</a>';
+			document.getElementById('links').innerHTML = div;
+			document.getElementById('mainlinks').innerHTML = div;
+		}
+		</script>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+	  <script
+	  src="https://code.jquery.com/jquery-2.2.4.min.js"
+	  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+	  crossorigin="anonymous"></script>
+	  <script src="../../../../../../../../../../js/bootstrap.js"></script>
+	  <script src="../../../../../../../../../../../../controllers/controller.js"></script>
 </body>
 </html>

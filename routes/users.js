@@ -2,12 +2,18 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var bodyParser = require('body-parser');
+
 
 var User = require('../models/user');
 
 // Login
 router.get('/login', function(req, res){
 	res.render('login');
+});
+
+router.get('/vergeten', function(req,res){
+	res.render('vergeten');
 });
 
 
@@ -53,5 +59,7 @@ router.get('/logout', function(req, res){
 
 	res.redirect('/users/login');
 });
+
+
 
 module.exports = router;

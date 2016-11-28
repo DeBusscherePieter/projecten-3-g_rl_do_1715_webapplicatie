@@ -11,11 +11,12 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var helpers = require('handlebars-helpers')();
+var bcrypt = require('bcryptjs');
 
 
-
-
-mongoose.connect('mongodb://localhost/loginapp');
+var url = process.env.MONGOLAB_URI;
+mongoose.connect(url);
+//mongoose.connect('mongodb://localhost/loginapp');
 var db = mongoose.connection;
 
 var routes = require('./routes/index');
@@ -85,14 +86,16 @@ app.use(function (req, res, next) {
 
 
 
-
-///////////////////////////////////////////////////
+var collections = ["users", "verification", "maaltijdList", "restaurantList", "activiteitenList"];
 var mongojs = require('mongojs');
-var dbM = mongojs('maaltijdList', ['maaltijdList']);
+var dbjs = mongojs(url,collections);
+//var dbjs = mongojs.connect(url, collections);
+///////////////////////////////////////////////////
+//var dbM = mongojs('maaltijdList', ['maaltijdList']);
 app.get('/maaltijdList', function(req, res) {
   console.log("I received a GET request")
 
-  dbM.maaltijdList.find(function(err, docs){
+  dbjs.maaltijdList.find(function(err, docs){
     console.log(docs);
     res.json(docs);
   });
@@ -100,7 +103,7 @@ app.get('/maaltijdList', function(req, res) {
 
 app.post('/maaltijdList', function(req, res){
   console.log(req.body);
-  dbM.maaltijdList.insert(req.body, function(err, doc){
+  dbjs.maaltijdList.insert(req.body, function(err, doc){
     res.json(doc);
   });
 });
@@ -108,7 +111,7 @@ app.post('/maaltijdList', function(req, res){
 app.delete('/maaltijdList/:id', function(req, res){
   var id = req.params.id;
   console.log(id);
-  dbM.maaltijdList.remove({_id: mongojs.ObjectId(id)}, function(err,doc){
+  dbjs.maaltijdList.remove({_id: mongojs.ObjectId(id)}, function(err,doc){
     res.json(doc);
   });
 });
@@ -116,7 +119,7 @@ app.delete('/maaltijdList/:id', function(req, res){
 app.get('/maaltijdList/:id', function(req,res){
   var id = req.params.id;
   console.log(id);
-  dbM.maaltijdList.findOne({_id: mongojs.ObjectId(id)}, function(err,doc){
+  dbjs.maaltijdList.findOne({_id: mongojs.ObjectId(id)}, function(err,doc){
     res.json(doc);
   });
 });
@@ -124,7 +127,7 @@ app.get('/maaltijdList/:id', function(req,res){
 app.put('/maaltijdList/:id', function(req, res){
   var id = req.params.id;
   console.log(req.body.datum);
-  dbM.maaltijdList.findAndModify({query: {_id: mongojs.ObjectId(id)},
+  dbjs.maaltijdList.findAndModify({query: {_id: mongojs.ObjectId(id)},
     update: {$set: {datum_creatie: req.body.datum_creatie, datum: req.body.datum, beschrijving: req.body.beschrijving, id: req.body.id, prijs: req.body.prijs, restaurant_id: req.body.restaurant_id, titel: req.body.titel, datum_update: req.body.datum_update}},
     new: true}, function(err, doc){
       res.json(doc);
@@ -142,12 +145,12 @@ app.put('/maaltijdList/:id', function(req, res){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-var db2 = mongojs('restaurantList', ['restaurantList']);
+//var db2 = mongojs('restaurantList', ['restaurantList']);
 
 app.get('/restaurantList', function(req, res) {
   console.log("I received a GET request")
 
-  db2.restaurantList.find(function(err, docs){
+  dbjs.restaurantList.find(function(err, docs){
     console.log(docs);
     res.json(docs);
   });
@@ -155,7 +158,7 @@ app.get('/restaurantList', function(req, res) {
 
 app.post('/restaurantList', function(req, res){
   console.log(req.body);
-  db2.restaurantList.insert(req.body, function(err, doc){
+  dbjs.restaurantList.insert(req.body, function(err, doc){
     res.json(doc);
   });
 });
@@ -163,7 +166,7 @@ app.post('/restaurantList', function(req, res){
 app.delete('/restaurantList/:id', function(req, res){
   var id = req.params.id;
   console.log(id);
-  db2.restaurantList.remove({_id: mongojs.ObjectId(id)}, function(err,doc){
+  dbjs.restaurantList.remove({_id: mongojs.ObjectId(id)}, function(err,doc){
     res.json(doc);
   });
 });
@@ -171,7 +174,7 @@ app.delete('/restaurantList/:id', function(req, res){
 app.get('/restaurantList/:id', function(req,res){
   var id = req.params.id;
   console.log(id);
-  db2.restaurantList.findOne({_id: mongojs.ObjectId(id)}, function(err,doc){
+  dbjs.restaurantList.findOne({_id: mongojs.ObjectId(id)}, function(err,doc){
     res.json(doc);
   });
 });
@@ -179,7 +182,7 @@ app.get('/restaurantList/:id', function(req,res){
 app.put('/restaurantList/:id', function(req, res){
   var id = req.params.id;
   console.log(req.body.datum);
-  db2.restaurantList.findAndModify({query: {_id: mongojs.ObjectId(id)},
+  dbjs.restaurantList.findAndModify({query: {_id: mongojs.ObjectId(id)},
     update: {$set: {adres: req.body.adres, created_at: req.body.created_at, id: req.body.id, lat: req.body.lat, lng: req.body.lng, naam: req.body.naam, openingsuren: req.body.openingsuren}},
     new: true}, function(err, doc){
       res.json(doc);
@@ -193,12 +196,12 @@ app.put('/restaurantList/:id', function(req, res){
 ////////////////////////////////////////                    ACTIVITEITEN                    /////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-var db3 = mongojs('activiteitenList', ['activiteitenList']);
+//var db3 = mongojs('activiteitenList', ['activiteitenList']);
 
 app.get('/activiteitenList', function(req, res) {
   console.log("I received a GET request")
 
-  db3.activiteitenList.find(function(err, docs){
+  dbjs.activiteitenList.find(function(err, docs){
     console.log(docs);
     res.json(docs);
   });
@@ -206,7 +209,7 @@ app.get('/activiteitenList', function(req, res) {
 
 app.post('/activiteitenList', function(req, res){
   console.log(req.body);
-  db3.activiteitenList.insert(req.body, function(err, doc){
+  dbjs.activiteitenList.insert(req.body, function(err, doc){
     res.json(doc);
   });
 });
@@ -214,7 +217,7 @@ app.post('/activiteitenList', function(req, res){
 app.delete('/activiteitenList/:id', function(req, res){
   var id = req.params.id;
   console.log(id);
-  db3.activiteitenList.remove({_id: mongojs.ObjectId(id)}, function(err,doc){
+  dbjs.activiteitenList.remove({_id: mongojs.ObjectId(id)}, function(err,doc){
     res.json(doc);
   });
 });
@@ -222,15 +225,15 @@ app.delete('/activiteitenList/:id', function(req, res){
 app.get('/activiteitenList/:id', function(req,res){
   var id = req.params.id;
   console.log(id);
-  db3.activiteitenList.findOne({_id: mongojs.ObjectId(id)}, function(err,doc){
+  dbjs.activiteitenList.findOne({_id: mongojs.ObjectId(id)}, function(err,doc){
     res.json(doc);
   });
 });
 
 app.put('/activiteitenList/:id', function(req, res){
   var id = req.params.id;
-  db3.activiteitenList.findAndModify({query: {_id: mongojs.ObjectId(id)},
-    update: {$set: {naam: req.body.naam, info: req.body.info, datum: req.body.datum, tijdstip: req.body.tijdstip, locatie: req.body.locatie, campus: req.body.campus, adres: req.body.adres}},
+  dbjs.activiteitenList.findAndModify({query: {_id: mongojs.ObjectId(id)},
+    update: {$set: {naam: req.body.naam, info: req.body.info, datum: req.body.datum, tijdstip: req.body.tijdstip, locatie: req.body.locatie, campus: req.body.campus, adres: req.body.adres, goedkeuring: req.body.goedkeuring, email: req.body.email}},
     new: true}, function(err, doc){
       res.json(doc);
 
@@ -240,6 +243,265 @@ app.put('/activiteitenList/:id', function(req, res){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////// VERGETEN ///////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+var generatePassword = require('password-generator');
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport('smtps://hogent.mijnresto@gmail.com:MijnRest0@smtp.gmail.com');
+//var db4 = mongojs('loginapp', ['users']);
+app.post('/users/vergeten', function(req, res){
+  var gebruiker = req.body.username;
+  var mail = req.body.mail;
+  console.log(gebruiker);
+
+
+  dbjs.users.findOne({username: req.body.username, email: req.body.mail},{username: req.body.username, email: req.body.mail}, function(err, doc){
+    if(doc){
+        if(doc.email === req.body.mail && doc.username === req.body.username){
+          console.log("Gebruiker bestaat!");
+          var nieuwWachtwoord = generatePassword(10, false);
+          //nieuwWachtwoord in bcrypt
+          var cryptWachtwoord = bcrypt.hashSync(nieuwWachtwoord);
+          console.log(cryptWachtwoord);
+          dbjs.users.update({username: req.body.username, email: req.body.mail}, {$set: {password: cryptWachtwoord}});
+
+          var mailOptions = {
+            from: '"Mijn Resto Team" <hogent.mijnresto@gmail.com>', // sender address
+            to: mail, // list of receivers
+            subject: 'Aanvraag nieuw wachtwoord!', // Subject line
+            //text: 'Nieuwe wachtwoord is' + nieuwWachtwoord // plaintext body
+            html: '<h1>Aanvraag nieuw wachtwoord</h1> <p> Beste ' + gebruiker + ', </br></br> U hebt een aanvraag gedaan voor een nieuw wachtwoord. Het nieuwe wachtwoord is <b>' + nieuwWachtwoord + '</b>. U kunt dit nieuwe wachtwoord wijzigen via deze link: </p> <p>Met vriendelijke groeten </br> Mijn Resto Team</p>' // html body
+          };
+
+          transporter.sendMail(mailOptions, function(error, info){
+            if(error){
+              return console.log(error);
+            }
+              console.log('Message sent: ' + info.response);
+            });
+            res.render('vergeten',{success_msg: "Wij hebben u een e-mail gestuurd met het nieuwe wachtwoord!"});
+          }
+
+      } else {
+        res.render('vergeten',{error_msg: "Incorrecte gegevens!"});
+    }
+  });
+});
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////// EDIT WACHTWOORD /////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+app.post('/users/edit/password', function(req, res){
+
+  if(!req.body.currentPassword || !req.body.newPassword || !req.body.newPasswordRepeat){
+    res.render('edit',{error_msg_pass: "Gelieve alle velden in te vullen.", layout: false});
+  } else {
+
+    dbjs.users.findOne({username: req.body.username},{username: 1, password: 1}, function(err,doc){
+
+      bcrypt.compare(req.body.currentPassword, doc.password, function(err, isMatch) {
+        	if(err) throw err;
+          if(isMatch){
+            if(req.body.newPassword === req.body.newPasswordRepeat){
+              var regex = new RegExp("(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{4,15})$");
+              if(regex.test(req.body.newPassword)){
+
+                if(req.body.newPassword === req.body.currentPassword){
+                  res.render('edit',{error_msg_pass: "Uw nieuw wachtwoord mag niet gelijk zijn aan uw huidig wachtwoord.", layout: false});
+                }
+
+                dbjs.users.update({username: req.body.username}, {$set: {password: bcrypt.hashSync(req.body.newPassword)}});
+                res.render('edit',{success_msg_pass: "Uw wachtwoord is succesvol gewijzigd!"});
+              } else {
+                res.render('edit',{error_msg_pass: "Uw nieuw wachtwoord voldoet niet aan het juiste formaat."});
+              }
+            } else {
+              res.render('edit',{error_msg_pass: "De twee nieuwe opgegeven wachtwoorden zijn niet gelijk."});
+            }
+          } else {
+            res.render('edit',{error_msg_pass: "Uw huidig wachtwoord is incorrect."});
+          }
+    	});
+
+    });
+  }
+});
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////// Wijzig email ///////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+var passgen = require('pass-gen');
+//var db5 = mongojs('loginapp', ['verification']);
+app.post('/users/edit/mail', function(req, res){
+  if(!req.body.newMail || !req.body.newMailRepeat){
+    res.render('edit',{error_msg_mail: "Gelieve alle velden in te vullen.", layout: false});
+  } else {
+    var huidig = req.body.currentMail;
+    var newMail = req.body.newMail;
+    var newMailRepeat = req.body.newMailRepeat;
+    var mailregex = new RegExp(".+@.+");
+    if(mailregex.test(newMail)){
+        if(newMail === newMailRepeat){
+          if(huidig !== newMail){
+
+
+            //userid
+            dbjs.users.findOne({username: req.body.gebruiker}, {_id: 1}, function(err, doc){
+              //create token
+              var cryptToken = passgen(['ascii', 'numbers'], 10);
+              //var cryptToken = bcrypt.hashSync(token);
+              //mail
+              dbjs.verification.insert({nieuwe_email: newMail, userid: doc._id, token: cryptToken});
+              var mailOptions = {
+                from: '"Mijn Resto Team" <hogent.mijnresto@gmail.com>', // sender address
+                to: newMail, // list of receivers
+                subject: 'Aanvraag nieuw e-mailadres!', // Subject line
+                html: '<h1>Aanvraag nieuw e-mailadres</h1> <p> Beste '
+                + req.body.gebruiker +
+                ', </br></br> U hebt een aanvraag gedaan voor een nieuw e-mailadres. U kunt dit e-mailadres instellen als uw huidig e-mailadres via deze link: </br> </br> <a href="http://localhost:3000/users/edit/changemail/'
+                + newMail
+                + '/'
+                + doc._id
+                + '/'
+                + cryptToken
+                + '" target="_blank">http://localhost:3000/users/edit/changemail/' + newMail + '/' + doc._id + '/' + cryptToken + '</a> </p> <p>Indien u deze aanvraag niet hebt gedaan en u denkt dat uw account aangetast is, wijzigt u best uw wachtwoord.</p> <p>Met vriendelijke groeten </br> Mijn Resto Team</p>' // html body
+              };
+
+              transporter.sendMail(mailOptions, function(error, info){
+                if(error){
+                  console.log("error transporter.sendmail");
+                  return console.log(error);
+                }
+                  console.log('Message sent: ' + info.response);
+
+                });
+                res.render('edit',{success_msg_mail: "We hebben u een bevestigingsmail verstuurd."});
+            });
+
+
+          } else {
+            res.render('edit',{error_msg_mail: "Het nieuw e-mailadres moet verschillen van uw huidig e-mailadres."});
+          }
+        } else {
+          res.render('edit',{error_msg_mail: "De twee opgegeven e-mailadressen moeten gelijk zijn aan elkaar."});
+        }
+    } else {
+      res.render('edit',{error_msg_mail: "Het e-mailadres moet geldig zijn."});
+    }
+  }
+});
+
+
+app.get('/users/edit/changemail/:nieuwemail/:userid/:usertoken', function(req, res) {
+    dbjs.verification.findOne({userid: mongojs.ObjectId(req.params.userid)}, {token: 1}, function(err,doc){
+      if(doc){
+        console.log(doc);
+        dbjs.users.update({_id: mongojs.ObjectId(req.params.userid)}, {$set: {email: req.params.nieuwemail}});
+        dbjs.verification.remove({token: req.params.usertoken}, function(err,doc){
+          res.render('mailok');
+        });
+
+      } else {
+        res.render('404', {layout: false});
+      }
+    });
+});
+
+
+
+
+
+///////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
+////////////////activiteiten email ////////////////////////
+///////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
+app.post('/activiteiten', function(req,res){
+
+  if(req.body.iswerknemer === 'false'){
+    var mailOptions = {
+      from: '"Mijn Resto Team" <hogent.mijnresto@gmail.com>', // sender address
+      to: 'pieter.debusschere.v7144@student.hogent.be', // list of receivers
+      subject: 'Nieuwe activiteit toegevoegd!', // Subject line
+      html: '<h1>Aanvraag nieuwe activiteit</h1> <p> Beste </p> </br>' + req.body.gebruiker + ' heeft een activiteit toegevoegd. U kunt deze aanvraag aanvaarden of wijzigen via de website. </br> </br> Met vriendelijke groeten </br> Mijn Resto Team'
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+      if(error){
+        console.log("error transporter.sendmail");
+        return console.log(error);
+      }
+        console.log('Message sent: ' + info.response);
+        res.render('activiteiten', {success_msg_activiteit: "Er is een mail verstuurd met de aanvraag tot goedkeuring van uw activiteit."});
+      });
+  }
+
+});
+
+
+
+
+
+///////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
+////////////// Goedkeuring activiteiten ///////////////////
+///////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
+app.post('/activiteiten/accept', function(req, res){
+  dbjs.activiteitenList.update({_id: mongojs.ObjectId(req.body._id)}, {$set: {goedkeuring: 'OK'}});
+  var mailOptions = {
+    from: '"Mijn Resto Team" <hogent.mijnresto@gmail.com>', // sender address
+    to: req.body.email, // list of receivers
+    subject: 'Uw activiteit is aanvaard!', // Subject line
+    html: '<h1>Aanvraag nieuwe activiteit</h1> <p> Beste </p> </br> Activiteit "' + req.body.naam + '" is aanvaard. De activiteit is nu zichtbaar voor iedere gebruiker van de mobiele applicatie. Wij wensen u veel succes met het organiseren van uw activiteit! </br> </br> <p>Met vriendelijke groeten </br> Mijn Resto Team</p>'
+  };
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if(error){
+      console.log("error transporter.sendmail");
+      return console.log(error);
+    }
+      console.log('Message sent: ' + info.response);
+      res.redirect('/activiteiten');
+    });
+
+});
+
+
+app.post('/activiteiten/deny', function(req, res){
+  dbjs.activiteitenList.update({_id: mongojs.ObjectId(req.body._id)}, {$set: {goedkeuring: 'NOK'}});
+  var mailOptions = {
+    from: '"Mijn Resto Team" <hogent.mijnresto@gmail.com>', // sender address
+    to: req.body.email, // list of receivers
+    subject: 'Uw activiteit is geweigerd...', // Subject line
+    html: '<h1>Aanvraag nieuwe activiteit</h1> <p> Beste </p> </br> Activiteit "' + req.body.naam + '" is helaas geweigerd. Indien u verdere vragen heeft kunt u ons altijd contacteren. </br> </br> Met vriendelijke groeten </br> Mijn Resto Team'
+  };
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if(error){
+      console.log("error transporter.sendmail");
+      return console.log(error);
+    }
+      console.log('Message sent: ' + info.response);
+      res.redirect('/activiteiten');
+    });
+});
 
 
 
@@ -254,7 +516,9 @@ app.put('/activiteitenList/:id', function(req, res){
 app.use('/', routes);
 app.use('/users', users);
 
-
+app.get('*', function(req, res){
+  res.render('404', {layout: false});
+});
 
 // Set Port
 app.set('port', (process.env.PORT || 3000));

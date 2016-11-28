@@ -22,8 +22,11 @@
     "handlebars-helpers": "^0.7.5",
     "mongodb": "*",
     "mongoose": "*",
+    "nodemailer": "^2.6.4",
+    "pass-gen": "0.0.1",
     "passport": "*",
     "passport-http": "*",
-    "passport-local": "*"
+    "passport-local": "*",
+    "password-generator": "^2.0.2"
   }
 }

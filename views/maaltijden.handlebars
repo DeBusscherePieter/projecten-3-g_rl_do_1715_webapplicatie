@@ -1,9 +1,8 @@
+<!--
 <!DOCTYPE>
 <html ng-app="myApp">
 <head>
-  <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <!-- Optional theme -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
   <title>
     Mijn Resto: webapplicatie
@@ -21,7 +20,18 @@
         <ul class="nav nav-pills pull-right">
           {{#if user}}
             <li role="presentation"><a href="/">Home</a></li>
-            <li role="presentation"><a href="/users/logout">Logout</a></li>
+            <li role="presentation">
+              <div class="dropdown">
+              <button class="btn btn-classic dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{user.username}}
+              <span class="caret"></span></button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                <li role="presentation"><a role="menuitem" href="/users/edit">Wijzig gegevens</a></li>
+                <li role="presentation" class="divider"></li>
+                <li role="presentation"><a role="menuitem" href="/users/logout">Log uit</a></li>
+              </ul>
+            </div>
+          </li>
           {{else}}
             <li role="presentation"><a href="/users/login">Login</a></li>
           {{/if}}
@@ -79,6 +89,155 @@
 
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+  <script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+  <script src="js/bootstrap.js"></script>
   <script src="controllers/controller.js"></script>
 </body>
 </html>
+-->
+
+
+
+
+
+
+
+
+<style>
+    .mdl-data-table {
+        table-layout:fixed;
+        width:100%;
+    }
+    #my-table td, th {
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
+    }
+
+
+    /* unrelated to responsive table css */
+    #my-table{
+      margin-top:24px;
+    }
+
+    .mdl-data-table th, td{
+      text-align: left !important;
+    }
+    .center{
+      text-align:center;
+    }
+    </style>
+
+
+<section class="mdl-grid" id="my-table">
+  <div class="mdl-layout-spacer"></div>
+  <div class="mdl-cell mdl-cell--6-col-tablet mdl-cell--12-col-desktop mdl-cell--stretch">
+
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" ng-controller="AppCtrl">
+      <h4>Maaltijden </h4>
+      <thead style="width: 100%">
+        <tr>
+
+          <th class="mdl-data-table__cell--non-numeric"> datum_creatie </th>
+          <th class="mdl-data-table__cell--non-numeric"> datum </th>
+          <th class="mdl-data-table__cell--non-numeric"> beschrijving </th>
+          <th class="mdl-data-table__cell--non-numeric"> id </th>
+          <th class="mdl-data-table__cell--non-numeric"> prijs </th>
+          <th class="mdl-data-table__cell--non-numeric"> restaurant_id </th>
+          <th class="mdl-data-table__cell--non-numeric"> titel </th>
+          <th class="mdl-data-table__cell--non-numeric"> datum_update </th>
+          <th style="width: 100px"> Actie </th>
+
+            </div>
+          </div>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+
+                <td class="mdl-data-table__cell--non-numeric">
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="Datum_creatie"  ng-model="maaltijd.datum_creatie" placeholder="Datum_creatie">
+                  </div>
+                </td>
+
+                <td class="mdl-data-table__cell--non-numeric">
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="Datum" ng-model="maaltijd.datum" placeholder="Datum">
+                  </div>
+                </td>
+
+                <td>
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <textarea class="mdl-textfield__input" type="text" rows= "3" id="Beschrijving" ng-model="maaltijd.beschrijving" placeholder="Beschrijving"></textarea>
+                  </div>
+                </td>
+
+                <td>
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="Id"  ng-model="maaltijd.id" placeholder="Id">
+                  </div>
+                </td>
+
+                <td>
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="Prijs"  ng-model="maaltijd.prijs" placeholder="Prijs">
+                  </div>
+                </td>
+
+                <td class="mdl-data-table__cell--non-numeric">
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="Restaurant_id" ng-model="maaltijd.restaurant_id" placeholder="Restaurant_id">
+                  </div>
+                </td>
+
+                <td class="mdl-data-table__cell--non-numeric">
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <textarea class="mdl-textfield__input" type="text" rows= "3" id="Titel" placeholder="Titel"  ng-model="maaltijd.titel"></textarea>
+                  </div>
+                </td>
+
+                <td class="mdl-data-table__cell--non-numeric">
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="Datum_update" ng-model="maaltijd.datum_update" placeholder="Datum_update">
+                  </div>
+                </td>
+
+                <td style="width: 100px">
+                  <button class="mdl-button mdl-js-button mdl-button--icon" ng-click="addMaaltijd()">
+                    <i class="material-icons">add</i>
+                  </button>
+                  <button class="mdl-button mdl-js-button mdl-button--icon" ng-click="update()">
+                    <i class="material-icons">publish</i>
+                  </button>
+                </td>
+              </div>
+        </tr>
+        <tr ng-repeat="maaltijd in maaltijdList">
+          <td><p ng-bind="maaltijd.datum_creatie"></p></td>
+          <td><p ng-bind="maaltijd.datum"></p></td>
+          <td><p ng-bind="maaltijd.beschrijving"></p></td>
+          <td><p ng-bind="maaltijd.id"></p></td>
+          <td><p ng-bind="maaltijd.prijs"></p></td>
+          <td><p ng-bind="maaltijd.restaurant_id"></p></td>
+          <td><p ng-bind="maaltijd.titel"></p></td>
+          <td><p ng-bind="maaltijd.datum_update"></p></td>
+          <td>
+            <button class="mdl-button mdl-js-button mdl-button--icon" ng-click="remove(maaltijd._id)">
+              <i class="material-icons">delete</i>
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--icon" ng-click="edit(maaltijd._id)">
+              <i class="material-icons">create</i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="mdl-layout-spacer"></div>
+</section>

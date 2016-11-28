@@ -1,59 +1,113 @@
-<!DOCTYPE>
-<html ng-app="myApp">
-<head>
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <!-- Optional theme -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-  <title>
-    Mijn Resto: webapplicatie
-  </title>
-</head>
+<style>
+    .mdl-data-table {
+        table-layout:fixed;
+        width:100%;
+    }
+    #my-table td, th {
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
+    }
 
 
+    /* unrelated to responsive table css */
+    #my-table{
+      margin-top:24px;
+    }
+    .mdl-data-table th, td{
+      text-align: left !important;
+    }
+    .center{
+      text-align:center;
+    }
+</style>
 
-<body>
 
+<section class="mdl-grid" id="my-table">
+  <div class="mdl-layout-spacer"></div>
+  <div class="mdl-cell mdl-cell--6-col-tablet mdl-cell--12-col-desktop mdl-cell--stretch">
 
-  <div class="container" ng-controller="ActiviteitCtrl">
-    <div class="header clearfix">
-      <nav>
-        <ul class="nav nav-pills pull-right">
-          {{#if user}}
-            <li role="presentation"><a href="/">Home</a></li>
-            <li role="presentation"><a href="/users/logout">Logout</a></li>
-          {{else}}
-            <li role="presentation"><a href="/users/login">Login</a></li>
-          {{/if}}
-        </ul>
-      </nav>
-    </div>
-    <h1>Lijst activiteiten</h1>
-    <table class="table">
-      <thead>
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" ng-controller="ActiviteitCtrl">
+      <h4>Activiteiten </h4>
+      <thead style="width: 100%">
         <tr>
-          <th> naam </th>
-          <th> info </th>
-          <th> datum </th>
-          <th> tijdstip </th>
-          <th> locatie </th>
-          <th> campus </th>
-          <th> adres </th>
-          <th> Actie </th>
-          <td>&nbsp;</th>
+          <th class="mdl-data-table__cell--non-numeric"> naam </th>
+          <th class="mdl-data-table__cell--non-numeric"> info </th>
+          <th class="mdl-data-table__cell--non-numeric"> datum </th>
+          <th class="mdl-data-table__cell--non-numeric"> tijdstip </th>
+          <th class="mdl-data-table__cell--non-numeric"> locatie </th>
+          <th class="mdl-data-table__cell--non-numeric"> campus </th>
+          <th class="mdl-data-table__cell--non-numeric"> adres </th>
+          <th class="mdl-data-table__cell--non-numeric"> Status </th>
+          <th style="width: 100px"> Actie </th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td><input class="form-control" ng-model="activiteit.naam"></td>
-          <td><input class="form-control" ng-model="activiteit.info"></td>
-          <td><input class="form-control" ng-model="activiteit.datum"></td>
-          <td><input class="form-control" ng-model="activiteit.tijdstip"></td>
-          <td><input class="form-control" ng-model="activiteit.locatie"></td>
-          <td><input class="form-control" ng-model="activiteit.campus"></td>
-          <td><input class="form-control" ng-model="activiteit.adres"></td>
-          <td><button class="btn btn-primary" ng-click="addActiviteit()"> Voeg activiteit toe </button></td>
-          <td><button class="btn btn-info" ng-click="update()">Update</button></td>
+
+
+                <td class="mdl-data-table__cell--non-numeric">
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="naam" ng-model="activiteit.naam" placeholder="naam">
+                  </div>
+                </td>
+
+                <td class="mdl-data-table__cell--non-numeric">
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <textarea class="mdl-textfield__input" type="text" rows= "3" id="info"  ng-model="activiteit.info" placeholder="Info"></textarea>
+                  </div>
+                </td>
+
+                <td class="mdl-data-table__cell--non-numeric">
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="Datum" ng-model="activiteit.datum" placeholder="Datum">
+                  </div>
+                </td>
+
+                <td>
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="Tijdstip" ng-model="activiteit.tijdstip" placeholder="Tijdstip">
+                  </div>
+                </td>
+
+                <td>
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="Locatie"  ng-model="activiteit.locatie" placeholder="Locatie">
+                  </div>
+                </td>
+
+                <td class="mdl-data-table__cell--non-numeric">
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="Campus" ng-model="activiteit.campus" placeholder="Campus">
+                  </div>
+                </td>
+
+                <td class="mdl-data-table__cell--non-numeric">
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <textarea class="mdl-textfield__input" type="text" rows= "3" id="Adres" placeholder="Adres"  ng-model="activiteit.adres"></textarea>
+                  </div>
+                </td>
+
+                <td class="mdl-data-table__cell--non-numeric" >
+                  <div class="mdl-textfield mdl-js-textfield" id="vereniging">
+                    <input class="mdl-textfield__input" type="text" id="Status" ng-model="activiteit.goedkeuring='AFW'" disabled="disabled">
+                  </div>
+                </td>
+
+                <td style="width: 100px">
+                  <form method="post" action="/activiteiten">
+                    <input type="hidden" name="gebruiker" value={{user.username}}>
+                    <input type="hidden" name="iswerknemer" value={{user.werknemer}}>
+                    <button class="mdl-button mdl-js-button mdl-button--icon" ng-click="addActiviteit('{{user.email}}')" type="submit">
+                      <i class="material-icons">add</i>
+                    </button>
+                    <button class="mdl-button mdl-js-button mdl-button--icon" ng-click="update()">
+                      <i class="material-icons">publish</i>
+                    </button>
+                  </form>
+                </td>
         </tr>
         <tr ng-repeat="activiteit in activiteitenList">
           <td><p ng-bind="activiteit.naam"></p></td>
@@ -63,19 +117,35 @@
           <td><p ng-bind="activiteit.locatie"></p></td>
           <td><p ng-bind="activiteit.campus"></p></td>
           <td><p ng-bind="activiteit.adres"></p></td>
-          <td><button class="btn btn-danger" ng-click="removeActiviteit(activiteit._id)">Verwijder activiteit </button> </td>
-          <td><button class="btn btn-warning" ng-click="editActiviteit(activiteit._id)">Wijzig </button></td>
+          <td><p ng-bind="activiteit.goedkeuring"></p></td>
+          <td>
+            <button class="mdl-button mdl-js-button mdl-button--icon" ng-if="'{{user.email}}' === activiteit.email || '{{user.werknemer}}' === 'true'" ng-click="removeActiviteit(activiteit._id)">
+              <i class="material-icons">delete</i>
+            </button>
+            <div id="wijzig">
+              <button ng-if="'{{user.email}}' === activiteit.email || '{{user.werknemer}}' === 'true'" ng-if="activiteit.goedkeuring == 'AFW'" class="mdl-button mdl-js-button mdl-button--icon" ng-click="editActiviteit(activiteit._id)">
+                <i class="material-icons">create</i>
+              </button>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
-
-    <footer class="footer">
-      <p>&copy; 2016 Mijn Resto - Pieter De Busschere, Sofie De Plus &amp; Angelo Lebon</p>
-    </footer>
   </div>
+  <div class="mdl-layout-spacer"></div>
+</section>
 
 
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-  <script src="controllers/controller.js"></script>
-</body>
-</html>
+
+
+<script type="text/javascript">
+    if({{user.werknemer}} === true){
+      var div = '<input class="mdl-textfield__input" type="text" id="Status" ng-model="activiteit.goedkeuring=\'AFW\'" disabled="disabled">';
+      document.getElementById('vereniging').innerHTML = div;
+      var div2 = '<button class="mdl-button mdl-js-button mdl-button--icon" ng-click="editActiviteit(activiteit._id)"><i class="material-icons">create</i></button><form method="post" ng-if="activiteit.goedkeuring == \'NOK\' || activiteit.goedkeuring == \'AFW\'" action="/activiteiten/accept"><input type="hidden" name="email" ng-value="activiteit.email"><input type="hidden" name="_id" ng-value="activiteit._id" ng-value="activiteit._id"><input type="hidden" name="naam" ng-value="activiteit.naam"><input type="hidden" name="goedkeuring" ng-value="activiteit.goedkeuring" ng-value="activiteit.goedkeuring"><button class="mdl-button mdl-js-button mdl-button--icon" type="submit"><i class="material-icons">thumb_up</i></button></form>';
+
+	  var div3 = '<form method="post" ng-if="activiteit.goedkeuring == \'OK\' || activiteit.goedkeuring == \'AFW\'" action="/activiteiten/deny"><input type="hidden" ng-model="activiteit.naam" ng-value="activiteit.naam" name="naam"><input type="hidden" name="email" ng-value="activiteit.email"><input type="hidden" ng-model="activiteit._id" ng-value="activiteit._id" name="_id"><button class="mdl-button mdl-js-button mdl-button--icon" type="submit"><i class="material-icons">thumb_down</i></button>';
+	  var div4 = div2 + div3;
+      document.getElementById('wijzig').innerHTML = div4;
+    }
+  </script>

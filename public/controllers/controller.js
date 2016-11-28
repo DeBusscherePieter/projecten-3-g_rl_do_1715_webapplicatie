@@ -109,6 +109,7 @@ $scope.updateResto = function(){
 
 myApp.controller('ActiviteitCtrl', ['$scope', '$http', function($scope, $http) {
 
+
   var refreshActiviteit = function(){
     $http.get('/activiteitenList').success(function(response){
       console.log("I got the data I requested");
@@ -119,9 +120,10 @@ myApp.controller('ActiviteitCtrl', ['$scope', '$http', function($scope, $http) {
 
 refreshActiviteit();
 
-$scope.addActiviteit = function() {
+$scope.addActiviteit = function(mail) {
   console.log($scope.activiteit);
   $scope.activiteit._id = "";
+  $scope.activiteit.email = mail;
   $http.post('/activiteitenList', $scope.activiteit).success(function(response){
     console.log(response);
     refreshActiviteit();

@@ -1,13 +1,49 @@
- <h2 class="page-header">Welkom!</h2>
-<p>Wat wenst u te doen?</p>
-<div id="choices">
-  <a href="/restaurants"><button class="btn btn-classic">Wijzig restaurants</button></a> </br> </br>
-  <a href="/maaltijden"><button class="btn btn-classic">Wijzig maaltijden</button></a>
-</div>
+<div class="mdl-grid" id=choices>
 
-<script type="text/javascript">
-  if({{user.werknemer}} === false){
-    var div = '<a href="/activiteiten"><button class="btn btn-classic">Voeg activiteit toe </button></a> </br> </br>';
-    document.getElementById('choices').innerHTML = div;
+  <!-- ################################################## CARD 1 -->
+  <!-- Wide card with share menu button -->
+  <style>
+  .demo-card-wide.mdl-card {
+    width: 100%;
   }
-</script>
+  .demo-card-wide > .mdl-card__title {
+    color: #fff;
+    height: inherit;
+    background-color: rgb(0,150,136);
+  }
+  .demo-card-wide > .mdl-card__menu {
+    color: #fff;
+    background-color: rgb(0,150,136);
+  }
+  </style>
+  <div class="mdl-cell mdl-cell--3-col">
+  </div>
+  <div class="mdl-cell mdl-cell--6-col">
+    <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Welkom, {{user.name}}!</h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+        Indien je nood hebt aan meer informatie, kan dit stukje tekst jou misschien wel helpen! Als studentenvereniging aan Hogeschool Gent, is het nu mogelijk je
+        activiteiten via dit platform te registreren. Via de navigatiebalk rechtsboven is het mogelijk een activiteit toe te voegen. <br> <br> Wanneer u alle
+        gegevens hebt ingevuld kunt u ze overmaken. Er wordt dan een mailtje gestuurd naar de werknemers van HoGent. Zij gaan bekijken of jouw activiteit wel mogelijk is en die goed- of
+        afkeuren! Het is dus niet de bedoeling dat zij mailtjes krijgen met "Duvels aan 1 euro" als activiteit... Zij kunnen alles zien wat je invoert, dus denk aan jezelf, aan de werknemers en hou het proper! <br> <br>
+        Wanneer de medewerker een beslissing heeft gemaakt over het al dan niet goedkeuren van je activiteit, krijg jij een mailtje! Wanneer goedgekeurd, mogen jullie je activiteit
+        uitvoeren en is deze ook voor iedereen zichtbaar op de app 'Mijn Resto'! <br> <br>
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+        <h6 class=" mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="color: rgb(0,150,136)">
+          SUCCES!
+        </h6>
+      </div>
+    </div>
+  </div>
+  <!-- ################################################## CARD 1 -->
+
+
+
+
+  <div class="mdl-cell mdl-cell--3-col">
+
+  </div>
+</div>
