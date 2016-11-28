@@ -90,13 +90,15 @@
 		</main>
 </div>
 
-		<script>
-		if({{user.werknemer}} === false){
-			var div = '<a class="mdl-navigation__link" href="/"><i class="material-icons">home</i>Home</a><a class="mdl-navigation__link" href="/activiteiten"><i class="material-icons">pool</i>Activiteiten</a><a class="mdl-navigation__link" href="/users/edit"><i class="material-icons">account_circle</i>{{user.name}}</a><a class="mdl-navigation__link" href="/users/logout"><i class="material-icons">power_settings_new</i>Log uit</a>';
-			document.getElementById('links').innerHTML = div;
-			document.getElementById('mainlinks').innerHTML = div;
-		}
-		</script>
+		{{#if user}}
+			<script>
+			if({{user.werknemer}} === false){
+				var div = '<a class="mdl-navigation__link" href="/"><i class="material-icons">home</i>Home</a><a class="mdl-navigation__link" href="/activiteiten"><i class="material-icons">pool</i>Activiteiten</a><a class="mdl-navigation__link" href="/users/edit"><i class="material-icons">account_circle</i>{{user.name}}</a><a class="mdl-navigation__link" href="/users/logout"><i class="material-icons">power_settings_new</i>Log uit</a>';
+				document.getElementById('links').innerHTML = div;
+				document.getElementById('mainlinks').innerHTML = div;
+			}
+			</script>
+		{{/if}}
 
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
 	  <script
