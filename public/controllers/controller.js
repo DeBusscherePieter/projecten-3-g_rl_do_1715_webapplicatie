@@ -49,7 +49,6 @@ myApp.controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
 
     $scope.edit = function(id) {
       console.log($scope.maaltijd);
-      refresh();
       $http.get('/maaltijdList/' + id).success(function(response){
         $scope.maaltijd = response;
       });
