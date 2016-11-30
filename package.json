@@ -28,6 +28,6 @@
     "passport": "*",
     "passport-http": "*",
     "passport-local": "*",
-    "password-generator": "^2.0.2",
+    "password-generator": "^2.0.2"
   }
 }
