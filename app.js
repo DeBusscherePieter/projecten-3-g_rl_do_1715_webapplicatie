@@ -86,7 +86,7 @@ app.use(function (req, res, next) {
 
 
 
-var collections = ["users", "verification", "maaltijdList", "restaurantList", "activiteitenList"];
+var collections = ["users", "verification", "maaltijdList", "restaurantList", "activiteitenList", "efpl"];
 var mongojs = require('mongojs');
 var dbjs = mongojs(url,collections);
 //var dbjs = mongojs.connect(url, collections);
@@ -147,6 +147,18 @@ app.put('/maaltijdList/:id', function(req, res){
       res.json(doc);
 
   });
+});
+
+
+///////////////////////////////////////////////
+///////////////  REKENINGEN ///////////////////
+///////////////////////////////////////////////
+app.get('/efpl/:before/:after', function(req,res){
+    var email = req.params.before + '@' +  req.params.after;
+    console.log(email);
+    dbjs.efpl.find({mail: email}, {}, function(err,docs){
+       res.json(docs); 
+    });
 });
 
 
@@ -226,6 +238,12 @@ app.get('/activiteitenList', function(req, res) {
     console.log(docs);
     res.json(docs);
   });
+});
+
+app.get('/activiteitenList/goedgekeurd', function(req, res){
+    dbjs.activiteitenList.find({goedkeuring: 'OK'}, {}, function(err,docs){
+        res.json(docs);
+    });
 });
 
 app.post('/activiteitenList', function(req, res){
