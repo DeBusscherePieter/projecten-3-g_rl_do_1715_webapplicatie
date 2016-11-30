@@ -2,11 +2,29 @@ var myApp = angular.module('myApp', []);
 myApp.controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
     console.log("Hello World from controller");
 
+
+
     var refresh = function(){
       $http.get('/maaltijdList').success(function(response){
         console.log("I got the data I requested");
         $scope.maaltijdList = response;
-        $scope.maaltijd = "";
+        $scope.maaltijd = {};
+
+        $scope.maaltijd.allergenen = {};
+        $scope.maaltijd.allergenen.gluten = false;
+        $scope.maaltijd.allergenen.schaaldieren = false;
+        $scope.maaltijd.allergenen.eieren = false;
+        $scope.maaltijd.allergenen.vis = false;
+        $scope.maaltijd.allergenen.aardnoten = false;
+        $scope.maaltijd.allergenen.soja = false;
+        $scope.maaltijd.allergenen.melk = false;
+        $scope.maaltijd.allergenen.noten = false;
+        $scope.maaltijd.allergenen.selderij = false;
+        $scope.maaltijd.allergenen.mosterd = false;
+        $scope.maaltijd.allergenen.sesamzaad = false;
+        $scope.maaltijd.allergenen.zwavel = false;
+        $scope.maaltijd.allergenen.lupine = false;
+        $scope.maaltijd.allergenen.weekdieren = false;
       });
     };
 
@@ -30,7 +48,8 @@ myApp.controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
     };
 
     $scope.edit = function(id) {
-      console.log(id);
+      console.log($scope.maaltijd);
+      refresh();
       $http.get('/maaltijdList/' + id).success(function(response){
         $scope.maaltijd = response;
       });

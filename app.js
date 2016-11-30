@@ -128,7 +128,21 @@ app.put('/maaltijdList/:id', function(req, res){
   var id = req.params.id;
   console.log(req.body.datum);
   dbjs.maaltijdList.findAndModify({query: {_id: mongojs.ObjectId(id)},
-    update: {$set: {datum_creatie: req.body.datum_creatie, datum: req.body.datum, beschrijving: req.body.beschrijving, id: req.body.id, prijs: req.body.prijs, restaurant_id: req.body.restaurant_id, titel: req.body.titel, datum_update: req.body.datum_update}},
+    update: {$set: {datum_creatie: req.body.datum_creatie, datum: req.body.datum, beschrijving: req.body.beschrijving, id: req.body.id, prijs: req.body.prijs, restaurant_id: req.body.restaurant_id, titel: req.body.titel, datum_update: req.body.datum_update, 
+                   'allergenen.gluten': req.body.allergenen.gluten, 
+                   'allergenen.schaaldieren': req.body.allergenen.schaaldieren,
+                   'allergenen.eieren': req.body.allergenen.eieren,
+                   'allergenen.vis': req.body.allergenen.vis,
+                   'allergenen.aardnoten': req.body.allergenen.aardnoten,
+                   'allergenen.soja': req.body.allergenen.soja,
+                   'allergenen.melk': req.body.allergenen.melk,
+                   'allergenen.noten': req.body.allergenen.noten,
+                   'allergenen.selderij': req.body.allergenen.selderij,
+                   'allergenen.mosterd': req.body.allergenen.mosterd,
+                   'allergenen.sesamzaad': req.body.allergenen.sesamzaad,
+                   'allergenen.zwavel': req.body.allergenen.zwavel,
+                   'allergenen.lupine': req.body.allergenen.lupine,
+                   'allergenen.weekdieren': req.body.allergenen.weekdieren}},
     new: true}, function(err, doc){
       res.json(doc);
 
