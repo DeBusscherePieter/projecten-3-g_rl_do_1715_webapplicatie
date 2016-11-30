@@ -58,7 +58,7 @@
         <tr style="background-color: #e2fff6">
 
           <th style="width: 120px" class="mdl-data-table__cell--non-numeric"> datum_creatie </th>
-          <th style="width: 120px" class="mdl-data-table__cell--non-numeric"> datum </th>
+          <th class="mdl-data-table__cell--non-numeric"> datum </th>
           <th class="mdl-data-table__cell--non-numeric"> beschrijving </th>
           <th class="mdl-data-table__cell--non-numeric"> id </th>
           <th class="mdl-data-table__cell--non-numeric"> prijs </th>
@@ -81,9 +81,9 @@
                   </div>
                 </td>
 
-                <td style="width: 120px" class="mdl-data-table__cell--non-numeric">
+                <td class="mdl-data-table__cell--non-numeric">
                   <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="text" id="Datum" ng-model="maaltijd.datum" placeholder="Datum">
+                    <input class="mdl-textfield__input" type="text" id="Datum" ng-model="maaltijd.datum" placeholder="Datum dd-mm-yy" mask="39/19/9999">
                   </div>
                 </td>
 

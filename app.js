@@ -185,6 +185,13 @@ app.delete('/restaurantList/:id', function(req, res){
   });
 });
 
+app.get('/restaurantList/:id/maaltijdList', function(req,res){
+   var id = req.params.id;
+    dbjs.maaltijdList.find({'id':id}, function(err,doc){
+        res.json(doc);
+    })
+});
+
 app.get('/restaurantList/:id', function(req,res){
   var id = req.params.id;
   console.log(id);
