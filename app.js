@@ -86,7 +86,7 @@ app.use(function (req, res, next) {
 
 
 
-var collections = ["users", "verification", "maaltijdList", "restaurantList", "activiteitenList", "efpl"];
+var collections = ["users", "verification", "maaltijdList", "restaurantList", "activiteitenList", "efpl", "efpluser"];
 var mongojs = require('mongojs');
 var dbjs = mongojs(url,collections);
 //var dbjs = mongojs.connect(url, collections);
@@ -128,8 +128,8 @@ app.put('/maaltijdList/:id', function(req, res){
   var id = req.params.id;
   console.log(req.body.datum);
   dbjs.maaltijdList.findAndModify({query: {_id: mongojs.ObjectId(id)},
-    update: {$set: {datum_creatie: req.body.datum_creatie, datum: req.body.datum, beschrijving: req.body.beschrijving, id: req.body.id, prijs: req.body.prijs, restaurant_id: req.body.restaurant_id, titel: req.body.titel, datum_update: req.body.datum_update, 
-                   'allergenen.gluten': req.body.allergenen.gluten, 
+    update: {$set: {datum_creatie: req.body.datum_creatie, datum: req.body.datum, beschrijving: req.body.beschrijving, id: req.body.id, prijs: req.body.prijs, restaurant_id: req.body.restaurant_id, titel: req.body.titel, datum_update: req.body.datum_update,
+                   'allergenen.gluten': req.body.allergenen.gluten,
                    'allergenen.schaaldieren': req.body.allergenen.schaaldieren,
                    'allergenen.eieren': req.body.allergenen.eieren,
                    'allergenen.vis': req.body.allergenen.vis,
@@ -157,7 +157,7 @@ app.get('/efpl/:before/:after', function(req,res){
     var email = req.params.before + '@' +  req.params.after;
     console.log(email);
     dbjs.efpl.find({mail: email}, {}, function(err,docs){
-       res.json(docs); 
+       res.json(docs);
     });
 });
 
@@ -544,6 +544,27 @@ app.post('/activiteiten/deny', function(req, res){
 
 
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////// USER NFC ////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+app.get('/user/:id', function(req, res){
+  var id = req.params.id;
+  dbjs.efpluser.findOne({'id' : req.params.id},function (err, doc) {
+    if (!doc) {
+        // we visited all docs in the collection
+        res.json("[]");
+    } else {
+        if(doc.blocked){
+            res.json("Kaart is geblokkeerd!");
+        } else {
+            res.json(doc.mail);
+        }
+    }
+  });
+});
 
 
 
