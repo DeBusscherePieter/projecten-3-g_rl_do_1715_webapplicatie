@@ -560,7 +560,8 @@ app.get('/user/:id', function(req, res){
         if(doc.blocked){
             res.json("Kaart is geblokkeerd!");
         } else {
-            res.json(doc.mail);
+            var user = {email: doc.mail, name: doc.name};
+            res.json(user);
         }
     }
   });
