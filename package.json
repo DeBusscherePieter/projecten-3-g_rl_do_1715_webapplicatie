@@ -1,6 +1,9 @@
 {
   "name": "loginapp",
   "version": "1.0.0",
+  "engines": {
+    "npm": "3.10.10"
+  },
   "description": "Hogent: Mijn Resto",
   "main": "app.js",
   "scripts": {
