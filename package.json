@@ -10,7 +10,6 @@
   "author": "Mijn Resto Team",
   "license": "ISC",
   "dependencies": {
-    "angular-material": "^1.1.1",
     "bcryptjs": "*",
     "body-parser": "*",
     "connect-flash": "*",
