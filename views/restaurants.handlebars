@@ -43,19 +43,17 @@
       <thead style="width: 100%">
         <tr style="background-color: #e2fff6">
 
-              <th class="mdl-data-table__cell--non-numeric"> adres </th>
+              <th class="mdl-data-table__cell--non-numeric"> ID </th>
 
-              <th class="mdl-data-table__cell--non-numeric"> created_at </th>
+              <th class="mdl-data-table__cell--non-numeric"> Naam </th>
 
-              <th class="mdl-data-table__cell--non-numeric"> id </th>
+              <th class="mdl-data-table__cell--non-numeric"> Adres </th>
 
-              <th class="mdl-data-table__cell--non-numeric"> lat </th>
+              <th class="mdl-data-table__cell--non-numeric"> Openingsuren </th>
 
-              <th class="mdl-data-table__cell--non-numeric"> lng </th>
+              <th class="mdl-data-table__cell--non-numeric"> Latitude </th>
 
-              <th class="mdl-data-table__cell--non-numeric"> naam </th>
-
-              <th class="mdl-data-table__cell--non-numeric"> openingsuren </th>
+              <th class="mdl-data-table__cell--non-numeric"> Longitude </th>
 
               <th style="width: 120px"> Actie </th>
 
@@ -66,6 +64,18 @@
       <tbody>
         <tr style="background-color: #e2fff6">
 
+                <td>
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="id" ng-model="restaurant.id" placeholder="Id">
+                  </div>
+                </td>
+
+                <td class="mdl-data-table__cell--non-numeric">
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="naam" ng-model="restaurant.naam" placeholder="Naam">
+                  </div>
+                </td>
+
                 <td class="mdl-data-table__cell--non-numeric">
                   <div class="mdl-textfield mdl-js-textfield">
                     <textarea class="mdl-textfield__input" type="text" rows= "3" id="adres"  ng-model="restaurant.adres" placeholder="Adres"></textarea>
@@ -75,13 +85,7 @@
 
                 <td class="mdl-data-table__cell--non-numeric">
                   <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="text" id="created_at" ng-model="restaurant.created_at" placeholder="Created_at">
-                  </div>
-                </td>
-
-                <td>
-                  <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="text" id="id" ng-model="restaurant.id" placeholder="Id">
+                    <textarea class="mdl-textfield__input" type="text" rows= "3" id="openingsuren" placeholder="Openingsuren"  ng-model="restaurant.openingsuren"></textarea>
                   </div>
                 </td>
 
@@ -97,17 +101,7 @@
                   </div>
                 </td>
 
-                <td class="mdl-data-table__cell--non-numeric">
-                  <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="text" id="naam" ng-model="restaurant.naam" placeholder="Naam">
-                  </div>
-                </td>
-
-                <td class="mdl-data-table__cell--non-numeric">
-                  <div class="mdl-textfield mdl-js-textfield">
-                    <textarea class="mdl-textfield__input" type="text" rows= "3" id="openingsuren" placeholder="Openingsuren"  ng-model="restaurant.openingsuren"></textarea>
-                  </div>
-                </td>
+                
 
                 <td style="width: 120px">
                   <button class="mdl-button mdl-js-button mdl-button--icon" ng-click="addResto()">
@@ -120,13 +114,12 @@
               </div>
         </tr>
         <tr ng-repeat="restaurant in restaurantList">
-          <td><p ng-bind="restaurant.adres"></p></td>
-          <td><p ng-bind="restaurant.created_at"></p></td>
           <td><p ng-bind="restaurant.id"></p></td>
+          <td><p ng-bind="restaurant.naam"></p></td>
+          <td><p ng-bind="restaurant.adres"></p></td>
+          <td><p ng-bind="restaurant.openingsuren"></p></td>
           <td><p ng-bind="restaurant.lat"></p></td>
           <td><p ng-bind="restaurant.lng"></p></td>
-          <td><p ng-bind="restaurant.naam"></p></td>
-          <td><p ng-bind="restaurant.openingsuren"></p></td>
           <td>
             <button class="mdl-button mdl-js-button mdl-button--icon" ng-click="removeResto(restaurant._id)">
               <i class="material-icons">delete</i>

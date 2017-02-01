@@ -57,14 +57,12 @@
       <thead style="width: 100%">
         <tr style="background-color: #e2fff6">
 
-          <th style="width: 120px" class="mdl-data-table__cell--non-numeric"> datum_creatie </th>
-          <th class="mdl-data-table__cell--non-numeric"> datum </th>
-          <th class="mdl-data-table__cell--non-numeric"> beschrijving </th>
-          <th class="mdl-data-table__cell--non-numeric"> id </th>
-          <th class="mdl-data-table__cell--non-numeric"> prijs </th>
-          <th class="mdl-data-table__cell--non-numeric"> restaurant_id </th>
-          <th class="mdl-data-table__cell--non-numeric"> titel </th>
-          <th style="width: 120px" class="mdl-data-table__cell--non-numeric"> datum_update </th>
+          <th class="mdl-data-table__cell--non-numeric"> ID </th>
+          <th class="mdl-data-table__cell--non-numeric"> Titel </th>
+          <th class="mdl-data-table__cell--non-numeric"> Beschrijving </th>
+          <th class="mdl-data-table__cell--non-numeric"> Datum </th>
+          <th class="mdl-data-table__cell--non-numeric"> Prijs </th>
+          <th class="mdl-data-table__cell--non-numeric"> Restaurant ID </th>
           <th class="mdl-data-table__cell--non-numeric"> Allergenen </th>
           <th style="width: 120px"> Actie </th>
 
@@ -75,15 +73,15 @@
       <tbody>
         <tr style="background-color: #e2fff6">
 
-                <td style="width: 120px" class="mdl-data-table__cell--non-numeric">
+                <td>
                   <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="text" id="Datum_creatie"  ng-model="maaltijd.datum_creatie" placeholder="Datum_creatie">
+                    <input class="mdl-textfield__input" type="text" id="Id"  ng-model="maaltijd.id" placeholder="Id">
                   </div>
                 </td>
 
                 <td class="mdl-data-table__cell--non-numeric">
                   <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="text" id="Datum" ng-model="maaltijd.datum" placeholder="Datum dd-mm-yy" mask="39/19/9999">
+                    <textarea class="mdl-textfield__input" type="text" rows= "3" id="Titel" placeholder="Titel"  ng-model="maaltijd.titel"></textarea>
                   </div>
                 </td>
 
@@ -93,11 +91,12 @@
                   </div>
                 </td>
 
-                <td>
+                <td class="mdl-data-table__cell--non-numeric">
                   <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="text" id="Id"  ng-model="maaltijd.id" placeholder="Id">
+                    <input class="mdl-textfield__input" type="text" id="Datum" ng-model="maaltijd.datum" placeholder="Datum dd-mm-yy" mask="39/19/9999">
                   </div>
                 </td>
+
 
                 <td>
                   <div class="mdl-textfield mdl-js-textfield">
@@ -108,18 +107,6 @@
                 <td class="mdl-data-table__cell--non-numeric">
                   <div class="mdl-textfield mdl-js-textfield">
                     <input class="mdl-textfield__input" type="text" id="Restaurant_id" ng-model="maaltijd.restaurant_id" placeholder="Restaurant_id">
-                  </div>
-                </td>
-
-                <td class="mdl-data-table__cell--non-numeric">
-                  <div class="mdl-textfield mdl-js-textfield">
-                    <textarea class="mdl-textfield__input" type="text" rows= "3" id="Titel" placeholder="Titel"  ng-model="maaltijd.titel"></textarea>
-                  </div>
-                </td>
-
-                <td style="width: 120px" class="mdl-data-table__cell--non-numeric">
-                  <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="text" id="Datum_update" ng-model="maaltijd.datum_update" placeholder="Datum_update">
                   </div>
                 </td>
 
@@ -165,14 +152,13 @@
               </div>
         </tr>
         <tr ng-repeat="maaltijd in maaltijdList">
-          <td style="width: 120px"><p ng-bind="maaltijd.datum_creatie"></p></td>
-          <td style="width: 120px"><p ng-bind="maaltijd.datum"></p></td>
-          <td><p ng-bind="maaltijd.beschrijving"></p></td>
           <td><p ng-bind="maaltijd.id"></p></td>
+          <td><p ng-bind="maaltijd.titel"></p></td>
+          <td><p ng-bind="maaltijd.beschrijving"></p></td>
+          <td style="width: 120px"><p ng-bind="maaltijd.datum"></p></td>
           <td><p ng-bind="maaltijd.prijs"></p></td>
           <td><p ng-bind="maaltijd.restaurant_id"></p></td>
-          <td><p ng-bind="maaltijd.titel"></p></td>
-          <td style="width: 120px"><p ng-bind="maaltijd.datum_update"></p></td>
+          
           <td>
             <div ng-repeat="allergeen in maaltijd">
               <p ng-if="allergeen.gluten == true" class="allergyp">
