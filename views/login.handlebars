@@ -7,6 +7,14 @@
 	.main{
 		background-color: white;
 	}
+
+	.login{
+		text-align: center;
+	}
+
+	.loginbutton{
+		background-color: #eff1f4;
+	}
 </style>
 
 
@@ -41,10 +49,10 @@
 						<input class="mdl-textfield__input" name="password" type="password" id="userpass" />
 						<label class="mdl-textfield__label" for="userpass">Password</label>
 					</div>
-          <div class="mdl-card__actions">
-    				<button type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Log in</button>
-            <a href="/users/vergeten" style="font-size: 12px;"> Wachtwoord vergeten? </a>
+          <div class="mdl-card__actions login">
+    				<button type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect loginbutton"> <i class="material-icons">assignment_ind</i> Log in</button>
     			</div>
+				<a href="/users/vergeten" style="font-size: 12px;"> Wachtwoord vergeten? </a>
 				</form>
 			</div>
 		</div>
