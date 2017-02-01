@@ -26,6 +26,7 @@
     "handlebars": "^4.0.6",
     "handlebars-helpers": "^0.7.5",
     "mongodb": "*",
+    "mongojs": "*",
     "mongoose": "*",
     "nodemailer": "^2.6.4",
     "pass-gen": "0.0.1",
