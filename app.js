@@ -242,7 +242,15 @@ app.get('/activiteitenList', function(req, res) {
 
 app.get('/activiteitenList/goedgekeurd', function(req, res){
     dbjs.activiteitenList.find({goedkeuring: 'OK'}, {}, function(err,docs){
-        res.json(docs);
+        var newDocs = []
+        for(var index = 0; index < docs.length; ++index){
+          var dateArray = docs[index].datum.split("/");
+          var date = new Date(dateArray[2], dateArray[1] - 1, dateArray[0])
+          if(date.setHours(0,0,0,0) >= new Date().setHours(0,0,0,0)){
+            newDocs.push(docs[index])
+          }
+        }
+        res.json(newDocs);
     });
 });
 
