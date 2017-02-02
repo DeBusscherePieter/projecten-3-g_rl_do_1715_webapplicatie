@@ -421,13 +421,13 @@ app.post('/users/edit/mail', function(req, res){
                 subject: 'Aanvraag nieuw e-mailadres!', // Subject line
                 html: '<h1>Aanvraag nieuw e-mailadres</h1> <p> Beste '
                 + req.body.gebruiker +
-                ', <br><br> U hebt een aanvraag gedaan voor een nieuw e-mailadres. U kunt dit e-mailadres instellen als uw huidig e-mailadres via deze link: </br> </br> <a href="https://hogent.herokuapp.com/users/edit/changemail/'
+                ', <br><br> U hebt een aanvraag gedaan voor een nieuw e-mailadres. U kunt dit e-mailadres instellen als uw huidig e-mailadres via deze link: </br> </br> <a href="hogent.herokuapp.com/users/edit/changemail/'
                 + newMail
                 + '/'
                 + doc._id
                 + '/'
                 + cryptToken
-                + '" target="_blank">https://hogent.herokuapp.com/users/edit/changemail/' + newMail + '/' + doc._id + '/' + cryptToken + '</a> </p> <p>Indien u deze aanvraag niet hebt gedaan en u denkt dat uw account aangetast is, wijzigt u best uw wachtwoord.</p> <p> <br> <br> Met vriendelijke groeten <br> Mijn Resto Team</p>' // html body
+                + '" target="_blank">hogent.herokuapp.com/users/edit/changemail/' + newMail + '/' + doc._id + '/' + cryptToken + '</a> </p> <p>Indien u deze aanvraag niet hebt gedaan en u denkt dat uw account aangetast is, wijzigt u best uw wachtwoord.</p> <p> <br> <br> Met vriendelijke groeten <br> Mijn Resto Team</p>' // html body
               };
 
               transporter.sendMail(mailOptions, function(error, info){
