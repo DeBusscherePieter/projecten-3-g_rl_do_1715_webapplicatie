@@ -322,7 +322,7 @@ app.post('/users/vergeten', function(req, res){
             to: mail, // list of receivers
             subject: 'Aanvraag nieuw wachtwoord!', // Subject line
             //text: 'Nieuwe wachtwoord is' + nieuwWachtwoord // plaintext body
-            html: '<h1>Aanvraag nieuw wachtwoord</h1> <p> Beste ' + gebruiker + ', </br></br> U hebt een aanvraag gedaan voor een nieuw wachtwoord. Het nieuwe wachtwoord is <b>' + nieuwWachtwoord + '</b>. U kunt dit nieuwe wachtwoord wijzigen via deze link: </p> <p>Met vriendelijke groeten </br> Mijn Resto Team</p>' // html body
+            html: '<h1>Aanvraag nieuw wachtwoord</h1> <p> Beste ' + gebruiker + ', <br><br> U hebt een aanvraag gedaan voor een nieuw wachtwoord. Het nieuwe wachtwoord is <b>' + nieuwWachtwoord + '</b> </p> <p>  <br> <br> Met vriendelijke groeten <br> Mijn Resto Team</p>' // html body
           };
 
           transporter.sendMail(mailOptions, function(error, info){
@@ -421,13 +421,13 @@ app.post('/users/edit/mail', function(req, res){
                 subject: 'Aanvraag nieuw e-mailadres!', // Subject line
                 html: '<h1>Aanvraag nieuw e-mailadres</h1> <p> Beste '
                 + req.body.gebruiker +
-                ', </br></br> U hebt een aanvraag gedaan voor een nieuw e-mailadres. U kunt dit e-mailadres instellen als uw huidig e-mailadres via deze link: </br> </br> <a href="http://localhost:3000/users/edit/changemail/'
+                ', <br><br> U hebt een aanvraag gedaan voor een nieuw e-mailadres. U kunt dit e-mailadres instellen als uw huidig e-mailadres via deze link: </br> </br> <a href="http://hogent.herokuapp.com/users/edit/changemail/'
                 + newMail
                 + '/'
                 + doc._id
                 + '/'
                 + cryptToken
-                + '" target="_blank">http://localhost:3000/users/edit/changemail/' + newMail + '/' + doc._id + '/' + cryptToken + '</a> </p> <p>Indien u deze aanvraag niet hebt gedaan en u denkt dat uw account aangetast is, wijzigt u best uw wachtwoord.</p> <p>Met vriendelijke groeten </br> Mijn Resto Team</p>' // html body
+                + '" target="_blank">http://hogent.herokuapp.com/users/edit/changemail/' + newMail + '/' + doc._id + '/' + cryptToken + '</a> </p> <p>Indien u deze aanvraag niet hebt gedaan en u denkt dat uw account aangetast is, wijzigt u best uw wachtwoord.</p> <p> <br> <br> Met vriendelijke groeten <br> Mijn Resto Team</p>' // html body
               };
 
               transporter.sendMail(mailOptions, function(error, info){
