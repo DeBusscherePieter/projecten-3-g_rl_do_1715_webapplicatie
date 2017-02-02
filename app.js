@@ -463,7 +463,7 @@ app.get('/users/edit/changemail/:nieuwemail/:userid/:usertoken', function(req, r
         dbjs.verification.remove({token: req.params.usertoken}, function(err,doc){
           res.render('mailok');
         });
-
+        res.render('mailok');
       } else {
         res.render('404', {layout: false});
       }
