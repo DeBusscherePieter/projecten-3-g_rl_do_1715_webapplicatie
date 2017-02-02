@@ -421,7 +421,7 @@ app.post('/users/edit/mail', function(req, res){
                 subject: 'Aanvraag nieuw e-mailadres!', // Subject line
                 html: '<h1>Aanvraag nieuw e-mailadres</h1> <p> Beste '
                 + req.body.gebruiker +
-                ', <br><br> U hebt een aanvraag gedaan voor een nieuw e-mailadres. U kunt dit e-mailadres instellen als uw huidig e-mailadres via deze link: </br> </br> <a href="hogent.herokuapp.com/users/edit/changemail/'
+                ', <br><br> U hebt een aanvraag gedaan voor een nieuw e-mailadres. U kunt dit e-mailadres instellen als uw huidig e-mailadres via deze link: </br> </br> <a href="https://hogent.herokuapp.com/users/edit/changemail/'
                 + newMail
                 + '/'
                 + doc._id
@@ -463,7 +463,6 @@ app.get('/users/edit/changemail/:nieuwemail/:userid/:usertoken', function(req, r
         dbjs.verification.remove({token: req.params.usertoken}, function(err,doc){
           res.render('mailok');
         });
-        res.render('mailok');
       } else {
         res.render('404', {layout: false});
       }
