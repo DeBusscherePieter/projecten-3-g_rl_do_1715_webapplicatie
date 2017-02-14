@@ -331,7 +331,7 @@ app.post('/users/vergeten', function(req, res){
             }
               console.log('Message sent: ' + info.response);
             });
-            res.render('vergeten',{success_msg: "Wij hebben u een e-mail gestuurd met het nieuwe wachtwoord!"});
+            res.render('vergeten',{success_msg: "Wij hebben u een e-mail verstuurd met het nieuwe wachtwoord!"});
           }
 
       } else {
