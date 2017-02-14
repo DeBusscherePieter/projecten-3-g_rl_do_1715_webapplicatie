@@ -43,7 +43,7 @@
       <thead style="width: 100%">
         <tr style="background-color: #e2fff6">
 
-              <th class="mdl-data-table__cell--non-numeric"> ID </th>
+              <th class="mdl-data-table__cell--non-numeric" style="width: 80px"> ID </th>
 
               <th class="mdl-data-table__cell--non-numeric"> Naam </th>
 
@@ -66,7 +66,7 @@
 
                 <td>
                   <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="text" id="id" ng-model="restaurant.id" placeholder="Id">
+                    <input class="mdl-textfield__input" type="text" id="id" ng-model="restaurant.id" disabled=true>
                   </div>
                 </td>
 
@@ -113,7 +113,7 @@
                 </td>
               </div>
         </tr>
-        <tr ng-repeat="restaurant in restaurantList">
+        <tr ng-repeat="restaurant in restaurantList | orderBy:'-id'">
           <td><p ng-bind="restaurant.id"></p></td>
           <td><p ng-bind="restaurant.naam"></p></td>
           <td><p ng-bind="restaurant.adres"></p></td>

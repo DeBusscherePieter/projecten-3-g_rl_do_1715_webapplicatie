@@ -38,8 +38,6 @@ router.get('/users/edit/mail', ensureAuthenticated, function(req, res){
 });
 
 
-
-
 function ensureAuthenticated(req, res, next){
 	if(req.isAuthenticated()){
 		return next();

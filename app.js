@@ -86,7 +86,7 @@ app.use(function (req, res, next) {
 
 
 
-var collections = ["users", "verification", "maaltijdList", "restaurantList", "activiteitenList", "efpl", "efpluser"];
+var collections = ["users", "verification", "maaltijdList", "restaurantList", "activiteitenList", "efpl", "efpluser","campus"];
 var mongojs = require('mongojs');
 var dbjs = mongojs(url,collections);
 //var dbjs = mongojs.connect(url, collections);
@@ -485,7 +485,7 @@ app.post('/activiteiten', function(req,res){
       from: '"Mijn Resto Team" <hogent.mijnresto@gmail.com>', // sender address
       to: 'pieter.debusschere.v7144@student.hogent.be', // list of receivers
       subject: 'Nieuwe activiteit toegevoegd!', // Subject line
-      html: '<h1>Aanvraag nieuwe activiteit</h1> <p> Beste </p> </br>' + req.body.gebruiker + ' heeft een activiteit toegevoegd. U kunt deze aanvraag aanvaarden of wijzigen via de website. </br> </br> Met vriendelijke groeten </br> Mijn Resto Team'
+      html: '<h1>Aanvraag nieuwe activiteit</h1> <p> Beste </p> </br>' + req.body.gebruiker + ' heeft een activiteit toegevoegd. U kunt deze aanvraag aanvaarden of wijzigen via de <a href="https://hogent.herokuapp.com" target="_blank">website</a>. <br> <br> Met vriendelijke groeten <br> Mijn Resto Team'
     };
 
     transporter.sendMail(mailOptions, function(error, info){
@@ -515,7 +515,7 @@ app.post('/activiteiten/accept', function(req, res){
     from: '"Mijn Resto Team" <hogent.mijnresto@gmail.com>', // sender address
     to: req.body.email, // list of receivers
     subject: 'Uw activiteit is aanvaard!', // Subject line
-    html: '<h1>Aanvraag nieuwe activiteit</h1> <p> Beste </p> </br> Activiteit "' + req.body.naam + '" is aanvaard. De activiteit is nu zichtbaar voor iedere gebruiker van de mobiele applicatie. Wij wensen u veel succes met het organiseren van uw activiteit! </br> </br> <p>Met vriendelijke groeten </br> Mijn Resto Team</p>'
+    html: '<h1>Aanvraag nieuwe activiteit</h1> <p> Beste </p> <br> Activiteit "' + req.body.naam + '" is aanvaard. De activiteit is nu zichtbaar voor iedere gebruiker van de mobiele applicatie. Wij wensen u veel succes met het organiseren van uw activiteit! <br> <br> <p>Met vriendelijke groeten <br> Mijn Resto Team</p>'
   };
 
   transporter.sendMail(mailOptions, function(error, info){
@@ -536,7 +536,7 @@ app.post('/activiteiten/deny', function(req, res){
     from: '"Mijn Resto Team" <hogent.mijnresto@gmail.com>', // sender address
     to: req.body.email, // list of receivers
     subject: 'Uw activiteit is geweigerd...', // Subject line
-    html: '<h1>Aanvraag nieuwe activiteit</h1> <p> Beste </p> </br> Activiteit "' + req.body.naam + '" is helaas geweigerd. Indien u verdere vragen heeft kunt u ons altijd contacteren. </br> </br> Met vriendelijke groeten </br> Mijn Resto Team'
+    html: '<h1>Aanvraag nieuwe activiteit</h1> <p> Beste </p> <br> Activiteit "' + req.body.naam + '" is helaas geweigerd. Indien u verdere vragen heeft kunt u ons altijd contacteren. <br> <br> Met vriendelijke groeten <br> Mijn Resto Team'
   };
 
   transporter.sendMail(mailOptions, function(error, info){
@@ -588,9 +588,23 @@ app.get('/block/:before/:after', function(req,res){
 
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////// CAMPUSSEN ////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+app.get('/campus', function(req,res){
+  dbjs.campus.find(function(err,docs){
+    res.json(docs);
+  });
+});
 
-
+app.get('/campus/:naam', function(req,res){
+  dbjs.campus.findOne({'naam': req.params.naam}, function (err, doc){
+    res.json(doc.adres);
+  });
+})
 
 
 app.use('/', routes);

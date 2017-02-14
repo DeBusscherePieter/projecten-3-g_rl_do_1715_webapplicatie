@@ -57,7 +57,7 @@
       <thead style="width: 100%">
         <tr style="background-color: #e2fff6">
 
-          <th class="mdl-data-table__cell--non-numeric"> ID </th>
+          <th class="mdl-data-table__cell--non-numeric" style="width:80px"> ID </th>
           <th class="mdl-data-table__cell--non-numeric"> Titel </th>
           <th class="mdl-data-table__cell--non-numeric"> Beschrijving </th>
           <th class="mdl-data-table__cell--non-numeric"> Datum </th>
@@ -75,7 +75,7 @@
 
                 <td>
                   <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="text" id="Id"  ng-model="maaltijd.id" placeholder="Id">
+                    <input class="mdl-textfield__input" type="text" id="Id"  ng-model="maaltijd.id" placeholder="Id" disabled=true>
                   </div>
                 </td>
 
@@ -93,21 +93,24 @@
 
                 <td class="mdl-data-table__cell--non-numeric">
                   <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="text" id="Datum" ng-model="maaltijd.datum" placeholder="Datum dd-mm-yy" mask="39/19/9999">
+                    <input class="flatpickr mdl-textfield__input" type="text" id="Datum" ng-model="maaltijd.datum" placeholder="Datum">
                   </div>
                 </td>
 
 
                 <td>
                   <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="text" id="Prijs"  ng-model="maaltijd.prijs" placeholder="Prijs">
+                    <input class="mdl-textfield__input" type="text" id="Prijs"  ng-model="maaltijd.prijs" placeholder="Prijs" mask='d?d.dd'>
                   </div>
                 </td>
 
                 <td class="mdl-data-table__cell--non-numeric">
-                  <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="text" id="Restaurant_id" ng-model="maaltijd.restaurant_id" placeholder="Restaurant_id">
-                  </div>
+                  <!--<div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="Restaurant_id" ng-model="maaltijd.restaurant_id" placeholder="Restaurant ID">
+                  </div>-->
+                  <md-select ng-model="maaltijd.restaurant_id"  placeholder="Restaurant ID">
+                    <md-option ng-value="restaurant.id" ng-repeat="restaurant in restaurantList"><em ng-bind="restaurant.naam"></em></md-option>
+                  </md-select>
                 </td>
 
                 <td class="mdl-data-table__cell--non-numeric">
@@ -151,7 +154,7 @@
                 </td>
               </div>
         </tr>
-        <tr ng-repeat="maaltijd in maaltijdList">
+        <tr ng-repeat="maaltijd in maaltijdList | orderBy:'-id'">
           <td><p ng-bind="maaltijd.id"></p></td>
           <td><p ng-bind="maaltijd.titel"></p></td>
           <td><p ng-bind="maaltijd.beschrijving"></p></td>
@@ -222,7 +225,12 @@
 
 
 
-
+<script
+	  src="https://code.jquery.com/jquery-2.2.4.min.js"
+	  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+	  crossorigin="anonymous"></script>
+<script src="http://momentjs.com/downloads/moment.js"></script>
+	<script src="https://unpkg.com/flatpickr"></script>
 <script type="text/javascript">
   document.getElementById('allergenenlist').style.display = 'none';
   document.getElementById('allergenenbuttondown').style.display = 'none';
@@ -252,5 +260,10 @@
     document.getElementById('allergenenbuttondown').style.display = 'none';
     document.getElementById('allergenenbuttonup').style.display = 'inline';
   };
+
+  $("#Datum").flatpickr({
+      minDate: new Date(),
+      dateFormat: "d/m/Y"
+    });
 
 </script>
