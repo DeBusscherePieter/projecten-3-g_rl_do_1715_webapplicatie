@@ -78,7 +78,7 @@ app.use(function (req, res, next) {
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
   res.locals.user = req.user || null;
-  res.header('Access-Control-Allow-Origin', 'https://mijn-resto.herokuapp.com');
+  res.header('Access-Control-Allow-Origin', '*');
   next();
 });
 
