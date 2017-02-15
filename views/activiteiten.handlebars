@@ -109,7 +109,7 @@
 
                 <td class="mdl-data-table__cell--non-numeric" >
                   <div class="mdl-textfield mdl-js-textfield" id="vereniging">
-                    <input class="mdl-textfield__input" type="text" id="Status" ng-model="activiteit.goedkeuring='AFW'" disabled="disabled">
+                    <input class="mdl-textfield__input" type="text" id="Status" ng-model="activiteit.goedkeuring" ng-value="activiteit.goedkeuring='AFW'" disabled="disabled">
                   </div>
                 </td>
 
@@ -161,8 +161,8 @@
 	<script src="https://unpkg.com/flatpickr"></script>
 
 <script type="text/javascript">
-    if({{user.werknemer}} === true){
-      var div = '<input class="mdl-textfield__input" type="text" id="Status" ng-model="activiteit.goedkeuring=\'AFW\'" disabled="disabled">';
+    if( {{user.werknemer}} === true){
+      var div = '<input class="mdl-textfield__input" type="text" id="Status" ng-model="activiteit.goedkeuring" ng-value="activiteit.goedkeuring=\'AFW\'"  disabled="true">';
       document.getElementById('vereniging').innerHTML = div;
       var div2 = '<button class="mdl-button mdl-js-button mdl-button--icon" ng-click="editActiviteit(activiteit._id)"><i class="material-icons">create</i></button><form method="post" ng-if="activiteit.goedkeuring == \'NOK\' || activiteit.goedkeuring == \'AFW\'" action="/activiteiten/accept"><input type="hidden" name="email" ng-value="activiteit.email"><input type="hidden" name="_id" ng-value="activiteit._id" ng-value="activiteit._id"><input type="hidden" name="naam" ng-value="activiteit.naam"><input type="hidden" name="goedkeuring" ng-value="activiteit.goedkeuring" ng-value="activiteit.goedkeuring"><button class="mdl-button mdl-js-button mdl-button--icon" type="submit"><i class="material-icons">thumb_up</i></button></form>';
 
