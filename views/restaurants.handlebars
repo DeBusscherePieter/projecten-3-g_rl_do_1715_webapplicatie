@@ -113,7 +113,7 @@
                 </td>
               </div>
         </tr>
-        <tr ng-repeat="restaurant in restaurantList | orderBy:'-id'">
+        <tr ng-repeat="restaurant in restaurantList | orderBy : sortFunc : true">
           <td><p ng-bind="restaurant.id"></p></td>
           <td><p ng-bind="restaurant.naam"></p></td>
           <td><p ng-bind="restaurant.adres"></p></td>

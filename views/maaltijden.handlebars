@@ -154,7 +154,7 @@
                 </td>
               </div>
         </tr>
-        <tr ng-repeat="maaltijd in maaltijdList | orderBy:'-id'">
+        <tr ng-repeat="maaltijd in maaltijdList | orderBy : sortFunc : true">
           <td><p ng-bind="maaltijd.id"></p></td>
           <td><p ng-bind="maaltijd.titel"></p></td>
           <td><p ng-bind="maaltijd.beschrijving"></p></td>

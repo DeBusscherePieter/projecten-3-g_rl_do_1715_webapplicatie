@@ -2,6 +2,9 @@ var myApp = angular.module('myApp', ['ngMask','ngMaterial']);
 myApp.controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
     console.log("Hello World from controller");
 
+    $scope.sortFunc = function(maaltijd){
+        return parseInt(maaltijd.id);
+    };
 
     var refresh = function(){
       $http.get('/maaltijdList').success(function(response){
@@ -100,6 +103,11 @@ myApp.controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
 
 
 myApp.controller('RestaurantCtrl', ['$scope', '$http', function($scope, $http) {
+
+
+  $scope.sortFunc = function(restaurant){
+      return parseInt(restaurant.id);
+  };
 
 
   var refreshResto = function(){
