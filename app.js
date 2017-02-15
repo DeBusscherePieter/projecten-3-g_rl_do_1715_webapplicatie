@@ -128,7 +128,7 @@ app.put('/maaltijdList/:id', function(req, res){
   var id = req.params.id;
   console.log(req.body.datum);
   dbjs.maaltijdList.findAndModify({query: {_id: mongojs.ObjectId(id)},
-    update: {$set: {datum: req.body.datum, beschrijving: req.body.beschrijving, id: req.body.id, prijs: req.body.prijs, restaurant_id: req.body.restaurant_id, titel: req.body.titel,
+    update: {$set: {datum: req.body.datum, beschrijving: req.body.beschrijving, id: req.body.id.toString(), prijs: req.body.prijs, restaurant_id: req.body.restaurant_id.toString(), titel: req.body.titel,
                    'allergenen.gluten': req.body.allergenen.gluten,
                    'allergenen.schaaldieren': req.body.allergenen.schaaldieren,
                    'allergenen.eieren': req.body.allergenen.eieren,
@@ -216,7 +216,7 @@ app.put('/restaurantList/:id', function(req, res){
   var id = req.params.id;
   console.log(req.body.datum);
   dbjs.restaurantList.findAndModify({query: {_id: mongojs.ObjectId(id)},
-    update: {$set: {adres: req.body.adres, id: req.body.id, lat: req.body.lat, lng: req.body.lng, naam: req.body.naam, openingsuren: req.body.openingsuren}},
+    update: {$set: {adres: req.body.adres, id: req.body.id.toString(), lat: req.body.lat, lng: req.body.lng, naam: req.body.naam, openingsuren: req.body.openingsuren}},
     new: true}, function(err, doc){
       res.json(doc);
 
