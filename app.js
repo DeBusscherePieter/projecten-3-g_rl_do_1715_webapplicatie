@@ -78,6 +78,7 @@ app.use(function (req, res, next) {
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
   res.locals.user = req.user || null;
+  res.header('Access-Control-Allow-Origin', 'https://mijn-resto.herokuapp.com');
   next();
 });
 
@@ -104,9 +105,6 @@ app.get('/maaltijdList', function(req, res) {
 app.post('/maaltijdList', function(req, res){
   console.log(req.body);
   dbjs.maaltijdList.insert(req.body, function(err, doc){
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-    res.setHeader("Access-Control-Allow-Origin","*");
     res.json(doc);
   });
 });
