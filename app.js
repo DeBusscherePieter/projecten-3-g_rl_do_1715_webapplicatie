@@ -104,6 +104,9 @@ app.get('/maaltijdList', function(req, res) {
 app.post('/maaltijdList', function(req, res){
   console.log(req.body);
   dbjs.maaltijdList.insert(req.body, function(err, doc){
+    res.header("Access-Control-Allow-Headers", "Content-Type");
+    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.header("Access-Control-Allow-Origin","*");
     res.json(doc);
   });
 });
