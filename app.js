@@ -495,7 +495,7 @@ app.post('/activiteiten', function(req,res){
   if(req.body.iswerknemer === 'false'){
     var mailOptions = {
       from: '"Mijn Resto Team" <hogent.mijnresto@gmail.com>', // sender address
-      to: 'pieter.debusschere.v7144@student.hogent.be', // list of receivers
+      to: 'pjdbussc@gmail.com', // list of receivers
       subject: 'Nieuwe activiteit toegevoegd!', // Subject line
       html: '<h1>Aanvraag nieuwe activiteit</h1> <p> Beste </p> </br>' + req.body.gebruiker + ' heeft een activiteit toegevoegd. U kunt deze aanvraag aanvaarden of wijzigen via de <a href="https://hogent.herokuapp.com" target="_blank">website</a>. <br> <br> Met vriendelijke groeten <br> Mijn Resto Team'
     };
@@ -505,7 +505,7 @@ app.post('/activiteiten', function(req,res){
         console.log("error transporter.sendmail");
         return console.log(error);
       }
-        console.log('Message sent: ' + info.response);
+        console.log('Message sent: ' + info.response + ' VERZONDEN!!!!!');
         res.render('activiteiten', {success_msg_activiteit: "Er is een mail verstuurd met de aanvraag tot goedkeuring van uw activiteit."});
       });
   }
