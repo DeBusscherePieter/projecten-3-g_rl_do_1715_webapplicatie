@@ -305,8 +305,8 @@ var smtpTransport = require('nodemailer-smtp-transport');
 var transporter = nodemailer.createTransport(smtpTransport({
    service: 'Gmail',
    auth: {
-       user: 'username',
-       pass: 'password'
+       user: 'hogent.mijnresto@gmail.com',
+       pass: 'MijnRest0'
    }
 }));
 //var db4 = mongojs('loginapp', ['users']);
