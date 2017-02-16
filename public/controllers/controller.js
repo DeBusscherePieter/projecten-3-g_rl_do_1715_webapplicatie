@@ -48,6 +48,7 @@ myApp.controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
           $scope.maaltijd.id = Object.keys(response).length + 1;
         }
         $scope.maaltijd._id = "";
+        $scope.maaltijd.id = $scope.maaltijd.id.toString();
         $http.post('/maaltijdList', $scope.maaltijd).success(function(response){
           console.log(response);
           refresh();
@@ -128,6 +129,7 @@ $scope.addResto = function() {
           $scope.restaurant.id = Object.keys(response).length + 1;
     }
     $scope.restaurant._id = "";
+    $scope.restaurant.id = $scope.restaurant.id.toString();
     $http.post('/restaurantList', $scope.restaurant).success(function(response){
       console.log(response);
       refreshResto();
