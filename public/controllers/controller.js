@@ -49,6 +49,7 @@ myApp.controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
         }
         $scope.maaltijd._id = "";
         $scope.maaltijd.id = $scope.maaltijd.id.toString();
+        $scope.maaltijd.restaurant_id = $scope.maaltijd.restaurant_id.toString();
         $http.post('/maaltijdList', $scope.maaltijd).success(function(response){
           console.log(response);
           refresh();
