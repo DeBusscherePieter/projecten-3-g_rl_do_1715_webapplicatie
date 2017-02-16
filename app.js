@@ -301,14 +301,17 @@ app.put('/activiteitenList/:id', function(req, res){
 var generatePassword = require('password-generator');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
-//var transporter = nodemailer.createTransport('smtps://hogent.mijnresto@gmail.com:MijnRest0@smtp.gmail.com');
-var transporter = nodemailer.createTransport(smtpTransport({
-   service: 'Gmail',
-   auth: {
-       user: 'hogent.mijnresto@gmail.com',
-       pass: 'MijnRest0'
-   }
-}));
+
+var sgTransport = require('nodemailer-sendgrid-transport');
+
+var transporter = nodemailer.createTransport({
+  service: 'SendGrid',
+  auth: {
+    user: 'MijnResto',
+    pass: 'MijnRest0'
+  }
+});
+
 //var db4 = mongojs('loginapp', ['users']);
 app.post('/users/vergeten', function(req, res){
   var gebruiker = req.body.username;
